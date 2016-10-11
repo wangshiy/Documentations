@@ -12,4 +12,6 @@ var a = null;
 console.log(a); // null
 console.log(typeof a); // "object"
 ```
-
+#### 2. Differences between `==` and `===` ?
+`==`: check value
+`===`: check type and value
