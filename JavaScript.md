@@ -1,9 +1,15 @@
 # JavaScript
 #### 1. Differences between `null` and `undefined` ? 
-``` ruby Title  
-class Fixnum
-  def prime?
-    ('1' * self) !~ /^1?$|^(11+?)\1+$/
-  end
-end
+`undefined`: a variable has been declared but not assigned a value yet, and it is a data type
+``` JavaScript
+var a;
+console.log(a); // undefined
+console.log(typeof a); // "undefined"
 ```
+`null`: an assignment value means variable has no value 
+``` JavaScript
+var a = null;
+console.log(a); // null
+console.log(typeof a); // "object"
+```
+
