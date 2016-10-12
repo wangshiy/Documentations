@@ -15,3 +15,6 @@ console.log(typeof a); // "object"
 #### 2. Differences between `==` and `===` ?
 `==`: check value </br>
 `===`: check type and value
+#### 3. How to compare equality between two objects ?
+Normal comparison is to compare reference, we need a deep object comparison
+#### 4. Differences between `Object.keys()` and `Object.getOwnPropertyNames()` ?
