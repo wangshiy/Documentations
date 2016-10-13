@@ -4,3 +4,13 @@
 ```javascript
 <!doctype html>
 ```
+#### 2. What is the use of `data-` attribute ?
+`data-`: allow you to embed extra data in the DOM element 
+```javascript
+<div id="div1" data-list-size="5">
+</div>
+
+var div1 = document.getElementById("div1");
+var dataListSize = div1.getAttribute("data-list-size");
+console.log(dataListSize); // 5"")"")
+```
