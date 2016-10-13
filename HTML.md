@@ -16,12 +16,13 @@ console.log(dataListSize); // 5
 ```
 #### 3. How to change html text direction ?
 Use Bi-Direction Override
-</br>
-<bdo dir="rtl">
-This text will go right-to-left
-</bdo>
 ```html
 <bdo dir="rtl">
 This text will go right-to-left
 </bdo>
+```
+#### 4. How to highlight text in html ?
+Use mark element
+```html
+<p>This is <mark>highlight</mark></p>
 ```
