@@ -12,5 +12,17 @@
 
 var div1 = document.getElementById("div1");
 var dataListSize = div1.getAttribute("data-list-size");
-console.log(dataListSize); // 5"")"")
+console.log(dataListSize); // 5
+```
+#### 3. How to change html text direction ?
+Use Bi-Direction Override
+```html
+<bdo dir="rtl">
+This text will go right-to-left
+</bdo>
+<!--
+<bdo dir="rtl">
+This text will go right-to-left
+</bdo>
+-->
 ```
