@@ -61,3 +61,21 @@ var date = new Date();
 console.log(date.getDate()); // 13
 console.log(date.nextDate().getDate()); // 14
 ```
+#### 6. How to use an arbitrary object as the value of this ?
+`bind`: borrow the method, set the this and passed in arguments and then return it as a new function
+```javascript
+var a = {
+  balance: 100,
+  deduct: function(fee){
+    this.balance -= fee;
+  }
+};
+var b = {balance: 1000};
+
+a.deduct(10);
+console.log(a.balance); // 90
+var bDeductFuc = a.deduct.bind(b,100);
+bDeductFuc();
+bDeductFuc();
+console.log(b.balance); // 800
+```
