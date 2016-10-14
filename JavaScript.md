@@ -50,3 +50,14 @@ Object.defineProperties(a,{
 console.log(Object.keys(a)); // ["1"]
 console.log(Object.getOwnPropertyNames(a)); // ["1", "2"]
 ```
+#### 5. Extend the date instance to have a nextDate method ?
+```javascript
+Date.prototype.nextDate = function(){
+  var currentDate = this.getDate();
+  return new Date(this.setDate(currentDate + 1));
+}
+
+var date = new Date();
+console.log(date.getDate()); // 13
+console.log(date.nextDate().getDate()); // 14
+```
