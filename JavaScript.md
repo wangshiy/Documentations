@@ -17,6 +17,27 @@ console.log(typeof a); // "object"
 `===`: check type and value
 #### 3. How to compare equality between two objects ?
 Normal comparison is to compare reference, we need a deep object comparison
+```javascript
+function isEqual(a,b){
+  var aProperties = Object.getOwnPropertyNames(a);
+  var bProperties = Object.getOwnPropertyNames(b);
+  if(aProperties.length !== bProperties.length){
+    return false;
+  }
+  for(var i = 0; i < aProperties.length; i++){
+    var propName = aProperties[i];
+    if(a[propName] !== b[propName]){
+      return false;
+    }
+  }
+  return true;
+}
+
+var obj1 = {name:"jim",age:16};
+var obj2 = {name:"jim",age:16};
+
+console.log(isEqual(obj1,obj2)); // true
+```
 #### 4. Differences between `Object.keys()` and `Object.getOwnPropertyNames()` ?
 `Object.keys()`: return an array of all **enumerable** and **own** properties</br>
 `Object.getOwnPropertyNames()`: return an array of all **own** properties
