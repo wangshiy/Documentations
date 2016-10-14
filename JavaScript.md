@@ -79,3 +79,14 @@ bDeductFuc();
 bDeductFuc();
 console.log(b.balance); // 800
 ```
+#### 7. Write a simple function to tell whether 2 is passed as parameter or not ?
+`arguments` is an array like object, so it needs to be converted into array
+```javascript
+function isTwoPassed(){
+  var args = Array.from(arguments);
+  return args.indexOf(2) !== -1;
+}
+
+console.log(isTwoPassed(1,2,3,4)); // true
+console.log(isTwoPassed(1,3,4)); // false
+```
