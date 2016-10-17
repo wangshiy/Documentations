@@ -90,3 +90,32 @@ function isTwoPassed(){
 console.log(isTwoPassed(1,2,3,4)); // true
 console.log(isTwoPassed(1,3,4)); // false
 ```
+#### 8. JavaScript pass by value or reference ?
+Primitives are passed by value, Objects are passed by reference.
+```html`
+<!doctype html>
+<html>
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+  </head>
+  <body ng-app="refApp" ng-controller="refCtrl">
+    <input ng-model="testObj.name"/>
+    <input ng-model="testStr"/>
+    <input ng-model="testObjRef.name"/>
+    <button ng-click="submit()">submit</button>
+    <script>
+      var app = angular.module("refApp",[]);
+      app.controller("refCtrl",["$scope",function($scope){
+        $scope.testObj = {name:"str"};
+        $scope.testStr = $scope.testObj.name;
+        $scope.testObjRef = $scope.testObj;
+        $scope.submit = function(){
+            console.log($scope.testObj); // testObj and testObjRef are synchronized because they share the same reference
+            console.log($scope.testStr); // String is primative, so it is passed by value
+            console.log($scope.testObjRef);
+        };
+      }]);
+    </script>
+  </body>
+</html>
+```
