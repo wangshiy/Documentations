@@ -119,3 +119,14 @@ Primitives are passed by value, Objects are passed by reference.
   </body>
 </html>
 ```
+#### 9. How could you use Math.max to find the max value in an array ?
+Use `apply()`
+```javascript
+var a = [1,-1,10,5];
+function getMax(arr){
+
+	  return Math.max.apply(null,arr);
+}
+console.log(getMax(a)); // 10
+}
+```
