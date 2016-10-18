@@ -151,3 +151,14 @@ for(var i = 0; i < 10; i++) {
 	setTimeout(console.log.bind(console, i), 10);
 }
 ```
+#### 12. How to implement JQuery style chaining function
+Every function returns its own object
+```javascript
+var obj = {
+    first: function() { console.log('first'); return obj; },
+    second: function() { console.log('second'); return obj; },
+    third: function() { console.log('third'); return obj; }
+}
+
+obj.first().second().third();
+```
