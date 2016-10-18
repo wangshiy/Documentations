@@ -138,3 +138,16 @@ function log(){
 }
 log("a","b","c"); // "(app) a b c"
 ```
+#### 11. How to log the loop counter inside setTimeout ? 
+Use IIFE or `bind()` to create its own scope and pass i to it respectively
+```javascript
+for(var i = 0; i < 10; i++) {
+	setTimeout((function(i) {
+	    console.log(i);
+	})(i), 10)
+}
+//*-----------------------------------*//
+for(var i = 0; i < 10; i++) { 
+	setTimeout(console.log.bind(console, i), 10);
+}
+```
