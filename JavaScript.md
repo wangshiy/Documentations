@@ -124,9 +124,7 @@ Use `apply()`
 ```javascript
 var a = [1,-1,10,5];
 function getMax(arr){
-
-	  return Math.max.apply(null,arr);
+    return Math.max.apply(null,arr);
 }
 console.log(getMax(a)); // 10
-}
 ```
