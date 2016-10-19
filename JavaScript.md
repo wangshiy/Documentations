@@ -162,3 +162,36 @@ var obj = {
 
 obj.first().second().third();
 ```
+#### 13. How to implement moveRight animation ?
+`setInterval` and then when distance matching `clearInterval`
+```html
+<!doctype html>
+<html>
+  <head>
+  </head>
+  <body>
+    <div id="testAnimation" style="height:50px;width:50px;background-color:red;position:absolute;">
+    </div>
+    <script>
+        var elem1 = document.getElementById("testAnimation");
+
+        function moveRight(elem, distance){
+  	    var left = 0;
+
+  	    function frame() {
+    	        left++;
+    		elem.style.left = left + 'px';
+
+    		if(left === distance){
+      		    clearInterval(timeId)
+  		}
+	    }
+
+	    var timeId = setInterval(frame, 10); // draw every 10ms
+	}
+
+	moveRight(elem1,100);
+    </script>
+  </body>
+</html>
+```
