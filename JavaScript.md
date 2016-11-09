@@ -195,3 +195,23 @@ obj.first().second().third();
   </body>
 </html>
 ```
+#### 14. How to loop through array and remove item while array is reindexing?
+Loop backwards.
+This way the re-indexing doesn't affect the next item in the iteration, since the indexing affects only the items from the current point to the end of the Array, and the next item in the iteration is lower than the current point.
+```javascript
+    var a = [2,2,2,4,6,8];
+    for(var i = 0; i < a.length; i++){
+      if(a[i] % 2 === 0){
+        a.splice(i,1);
+      }
+    } 
+    console.log(a);//[2,4,8]
+
+    var b = [2,2,2,4,6,8];
+    for(var i = b.length - 1; i >= 0; i--){
+      if(b[i] % 2 === 0){
+        b.splice(i,1);
+      }
+    }
+    console.log(b);//[]
+```
