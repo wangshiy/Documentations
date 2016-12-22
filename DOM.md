@@ -5,14 +5,40 @@
 #### 2. Differences between `window.onload` and `document.onload` ?
 `window.onload`: fires when DOM is ready and all other contents images, css and scripts finish loaded
 `document.onload`: fires when DOM is ready 
+#### 3. Implement `getElementsByAttribute` ?
 ``` JavaScript
-var a;
-console.log(a); // undefined
-console.log(typeof a); // "undefined"
-```
-`null`: an assignment value means variable has no value 
-``` JavaScript
-var a = null;
-console.log(a); // null
-console.log(typeof a); // "object"
+<!DOCTYPE html>
+<html>
+    <head>
+    </head>
+    <body>
+      <p data-impl="1"></p>
+      <div>
+        <span data-impl=""></spam>
+      </div>
+      <div data-impl="3">
+        <span></span>
+      </div>
+
+      <script>
+	Document.prototype.getElementsByAttribute = function(attr){
+	  var elems = document.getElementsByTagName("*");
+	  var elem;
+	  //console.log(elems);
+	  var result = [];
+	  for(var i = 0; i < elems.length; i++){
+	    elem = elems[i];
+	    //console.log("elem",elem);
+	    //console.log("attr",elem.getAttribute(attr));
+	    if(elem && elem.hasAttribute(attr)){
+	      result.push(elem);
+	    }
+	  }
+	  return result;
+	};
+
+	console.log(document.getElementsByAttribute("data-impl").length);// 3
+      </script>
+    </body>
+</html>
 ```
