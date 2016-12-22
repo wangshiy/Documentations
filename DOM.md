@@ -42,3 +42,49 @@
     </body>
 </html>
 ```
+#### 4. Add/remove a class from the element ?
+`elem.classList.add();`
+`elem.classList.remove();`
+``` JavaScript
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .one{
+      background-color: red;
+    }
+    .two{
+      background-color: blue;
+    }
+    .three{
+      background-color: yellow;
+    }
+  </style>
+</head>
+<body>
+  <p class="one">1</p>
+  <div>
+    <span id="target2" class="two">2</span>
+  </div>
+  <div id="target1" class="">
+    <span>3</span>
+  </div>
+  
+  <script>
+    function addClass(query, className){
+      var elem = document.querySelector(query);
+      elem.classList.add(className);
+    }
+
+    function removeClass(query, className){
+      var elem = document.querySelector(query);
+      elem.classList.remove(className);
+    }
+
+    addClass("#target1","three");
+    removeClass("#target2", "two");
+    addClass("#target2", "one");    
+  </script>
+</body>
+</html>
+```
