@@ -216,7 +216,7 @@ This way the re-indexing doesn't affect the next item in the iteration, since th
     console.log(b);//[]
 ```
 #### 15. Run function when user finished typing?
-```
+```javascript
 <!doctype html>
 <html>
   <head>
@@ -243,4 +243,14 @@ This way the re-indexing doesn't affect the next item in the iteration, since th
   	</script>
   </body>
 </html>
+```
+#### 16. How do you make a function that only calls input function f every 1000 milliseconds?
+```javascript
+function exec(f){
+  setInterval(f, 1000);
+}
+function innerFunc(){
+  console.log("inner");
+}
+exec(innerFunc);
 ```
