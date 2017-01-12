@@ -215,3 +215,32 @@ This way the re-indexing doesn't affect the next item in the iteration, since th
     }
     console.log(b);//[]
 ```
+#### 15. Run function when user finished typing?
+```
+<!doctype html>
+<html>
+  <head>
+  </head>
+  <body>
+  	<input id="input1" />
+
+  	<script type="text/javascript">
+      var input = document.getElementById("input1");
+      var timer;
+      input.addEventListener("keyup",function(evt){
+          console.log("keyup");
+          clearTimeout(timer);
+          timer = setTimeout(doneTyping,3000);
+      },false);
+      input.addEventListener("keydown",function(evt){
+      	  console.log("keydown");
+      	  clearTimeout(timer);
+      },false);
+
+      function doneTyping(){
+      	alert("typing done!");
+      }
+  	</script>
+  </body>
+</html>
+```
