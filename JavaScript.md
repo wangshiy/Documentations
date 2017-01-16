@@ -385,3 +385,45 @@ console.log(test2, array); // mutate array
 var test3 = [[[[[0]], [1]], [[[2], [3]]], [[4], [5]]]].flatten();
 console.log(test3);// [0, 1, 2, 3, 4, 5]
 ```
+Iterative
+```javascript
+// This is done in a linear time O(n) without recursion
+// memory complexity is O(1) or O(n) if mutable param is set to false
+function flatten(array, mutable) {
+    var toString = Object.prototype.toString;
+    var arrayTypeStr = '[object Array]';
+    
+    var result = [];
+    var nodes = array.slice(); //slice is just shallow copy
+    var node;
+    
+    if (!array.length) {
+        return result;
+    }
+    
+    while (nodes.length) {
+      node = nodes.shift();
+        if (toString.call(node) === arrayTypeStr) {
+            nodes.unshift.apply(nodes, node);
+        } else {
+            result.push(node);
+        }
+    }
+
+    return mutable ? result : JSON.parse(JSON.stringify(result));
+}
+
+var array = [
+  [0,[undefined,null], 1],
+  undefined, 
+  [2,null, 3], 
+  [4, 5, [6, 7, [8, [9, 10]]]],
+  [[{name:["jimmy","tom"]},8],'bbbb']
+];
+var test1 = flatten(array,false);
+test1[15].name = "xyz";
+console.log(test1, array); // does not mutate array
+var test2 = flatten(array, true);
+test2[15].name = "xyz";
+console.log(test2, array); // mutate array
+```
