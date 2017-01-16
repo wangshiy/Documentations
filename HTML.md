@@ -26,3 +26,8 @@ Use mark element
 ```html
 <p>This is <mark>highlight</mark></p>
 ```
+#### 5. How to ensure click the picture and go to a specific link ?
+Use `<a></a>` to wrap `<img>`
+```html
+<a href="https://www.google.com" target="_blank" ><img src="">></a>
+```

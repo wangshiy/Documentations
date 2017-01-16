@@ -254,3 +254,103 @@ function innerFunc(){
 }
 exec(innerFunc);
 ```
+#### 17. Given two identical DOM trees (not the same one), and a node from one of them find the node in the other one ?
+Thought is to get the path from the domTree1 and use this path to relocate node in domTree2
+```javascript
+<html>
+  <head>
+    <title></title>
+    <style></style>
+  </head>
+  <body>
+    <div>haha</div>
+    <div>
+      <span>a</span>
+      <div>
+        b
+        c
+        <div id="target">target</div>
+      </div>
+    </div>
+    
+    <script>
+var target = document.getElementById("target");
+var dom1 = document.documentElement;//return the root element i.e. <html>
+var dom2 = document.documentElement;
+
+// childNodes is an arrayLike object
+// it can not use array method then we needs to extend it
+function indexOf(arrLike, target) {
+    return Array.prototype.indexOf.call(arrLike, target);
+}
+
+// Given a node and a tree, extract the nodes path 
+function getPath(root, target) {
+    var current = target;
+    var path = [];
+    while(current !== root) {
+        path.unshift(indexOf(current.parentNode.childNodes, current));
+        current = current.parentNode;
+    }
+    console.log("path: " + path);
+    return path;
+}
+
+// Given a tree and a path, let's locate a node
+function locateNodeFromPath(root, path) {
+    var current = root;
+    for(var i = 0, len = path.length; i < len; i++) {
+        current = current.childNodes[path[i]];
+    }
+    return current;
+}
+
+function getDom(rootA, rootB, target) {
+    return locateNodeFromPath(rootB, getPath(rootA, target));
+}
+
+console.log(getDom(dom1,dom2,target).innerHTML);
+    </script>
+  </body>
+</html>
+```
+#### 17. How many childNodes are there in the div ?
+5. Because text node between elements also counts
+```javascript
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+div {
+    border: 1px solid black;
+    margin: 5px;
+}
+</style>
+</head>
+<body>
+
+<p>Click the button to find out how many child nodes the div element below has.</p>
+
+<button onclick="myFunction()">Try it</button>
+
+<div id="myDIV">a
+  b<p>First p element (index 1)</p>c
+  d<p>Second p element (index 3)</p>e
+</div>
+
+<p><strong>Note:</strong> Whitespace inside elements is considered as text, and text 
+is considered as nodes. In this example, index 0, 2 and 4 in DIV are text nodes.</p>
+
+<p id="demo"></p>
+
+<script>
+function myFunction() {
+    var c = document.getElementById("myDIV").childNodes[2].nodeValue;
+    document.getElementById("demo").innerHTML = c;
+}
+</script>
+
+</body>
+</html>
+
+```
