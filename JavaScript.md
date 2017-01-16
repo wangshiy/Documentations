@@ -352,5 +352,36 @@ function myFunction() {
 
 </body>
 </html>
+```
+#### 18. Given an array, return it's flattened structure(skip objects), write both recursive and iterative version ?
+Recursive
+```javascript
+Array.prototype.flatten = function(mutable) {
+    var ret = [];
+    for(var i = 0; i < this.length; i++) {
+        if(Array.isArray(this[i])) {
+            ret = ret.concat(this[i].flatten(mutable));
+        } else {
+            ret.push(this[i]);
+        }
+    }
+    
+    return mutable ? ret : JSON.parse(JSON.stringify(ret));
+};
 
+var array = [
+  [0,[undefined,null], 1],
+  undefined, 
+  [2,null, 3], 
+  [4, 5, [6, 7, [8, [9, 10]]]],
+  [[{name:["jimmy","tom"]},8],'bbbb']
+];
+var test1 = array.flatten(false);
+test1[15].name = "xyz";
+console.log(test1, array); // does not mutate array
+var test2 = array.flatten(true);
+test2[15].name = "xyz";
+console.log(test2, array); // mutate array
+var test3 = [[[[[0]], [1]], [[[2], [3]]], [[4], [5]]]].flatten();
+console.log(test3);// [0, 1, 2, 3, 4, 5]
 ```
