@@ -571,3 +571,43 @@ console.log("fab2 take " + (b2 - a2) + " ms");
 ```javascript
 Object.keys(a).length === 0
 ```
+#### 25. How to implement debounce function ?
+Keypoint is debounce will return a closure, inner function access outside `timeout` and do `clearTimeout(timeout);timeout = setTimeout(later,wait);`
+```javascript
+<!DOCTYPE html>
+<html>
+  <head>
+  </head>
+  <body>
+    <input id="myInput" />
+
+    <script type="text/javascript">
+      // Returns a function, that, as long as it continues to be invoked, will not
+      // be triggered. The function will be called after it stops being called for
+      // N milliseconds. If `immediate` is passed, trigger the function on the
+      // leading edge, instead of the trailing.
+      function debounce(func, wait, immediate) {
+        var timeout;
+        return function() {
+          var context = this, args = arguments;
+          var later = function() {
+            timeout = null;
+            func.apply(context, args);
+          };
+          var callNow = immediate && !timeout; // optional due to immediate
+          clearTimeout(timeout);
+          timeout = setTimeout(later, wait);
+          if (callNow) func.apply(context, args); // optional due to immediate
+        };
+      };
+
+      var myEfficientFn = debounce(function() {
+        console.log(1);
+      }, 250,false);
+
+      var myInput = document.getElementById("myInput");
+      myInput.addEventListener('keyup', myEfficientFn);
+    </script>
+  </body>
+</html>
+```
