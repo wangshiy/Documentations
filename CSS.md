@@ -64,3 +64,26 @@ When child's position is based on parent, keypoint is child should be `position:
   </body>
 </html>
 ```
+#### 3. How to make element inside div scrollable ?
+Specify div's height and width and then set `overflow-x` or `overflow-y` to `scroll`
+```javascript
+<!DOCTYPE html>
+<html>
+  <head>
+  </head>
+  <body>
+	<div style="height:100px;width:25px;overflow-y:scroll;overflow-x:scroll">
+      <p>hello world</p>
+	  <p>hello world</p>
+	  <p>hello world</p>
+	  <p>hello world</p>
+	  <p>hello world</p>
+	  <p>hello world</p>
+	  <p>hello world</p>
+	  <p>hello world</p>
+	  <p>hello world</p>
+	  <p>hello world</p>
+	</div>
+  </body>
+</html>
+```

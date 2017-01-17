@@ -173,24 +173,23 @@ obj.first().second().third();
     <div id="testAnimation" style="height:50px;width:50px;background-color:red;position:absolute;">
     </div>
     <script>
-        var elem1 = document.getElementById("testAnimation");
+      var elem1 = document.getElementById("testAnimation");
 
-        function moveRight(elem, distance){
-  	    var left = 0;
+      function moveRight(elem, distance){
+        var left = 0;
 
-  	    function frame() {
-    	        left++;
-    		elem.style.left = left + 'px';
+        function frame() {
+          left++;
+    		  elem.style.left = left + 'px';
+    		  if(left === distance){
+      		  clearInterval(timeId)
+  		    }
+        }
 
-    		if(left === distance){
-      		    clearInterval(timeId)
-  		}
-	    }
+        var timeId = setInterval(frame, 10); // draw every 10ms
+      }
 
-	    var timeId = setInterval(frame, 10); // draw every 10ms
-	}
-
-	moveRight(elem1,100);
+      moveRight(elem1,100);
     </script>
   </body>
 </html>
@@ -426,4 +425,149 @@ console.log(test1, array); // does not mutate array
 var test2 = flatten(array, true);
 test2[15].name = "xyz";
 console.log(test2, array); // mutate array
+```
+#### 19. How to reverse a string ?
+```javascript
+String.prototype.reverse = function(){
+  return this.split('').reverse().join('');
+}
+
+var str = "hello world!";
+console.log(str.reverse());
+```
+#### 20. How could you make this work [1,2,3,4,5].duplicator(); // [1,2,3,4,5,1,2,3,4,5] ?
+```javascript
+Array.prototype.duplicate = function(){
+  return this.concat(this);
+}
+
+var a = [1,2,7,3,4,5];
+console.log(a.duplicate());
+```
+#### 21. How to implement javascript inheritance ?
+`Child.prototype = Object.create(Parent.prototype)` and `Child.prototype.constructor = Child`
+```javascript
+// Shape - superclass
+function Shape() {
+  this.x = 0;
+  this.y = 0;
+}
+
+// superclass method
+Shape.prototype.move = function(x, y) {
+  this.x += x;
+  this.y += y;
+  console.info('Shape moved.');
+};
+
+// Rectangle - subclass
+function Rectangle() {
+  Shape.call(this); // call super constructor.
+  this.z = 0;
+}
+
+// subclass extends superclass
+Rectangle.prototype = Object.create(Shape.prototype);
+Rectangle.prototype.constructor = Rectangle;
+
+var rect = new Rectangle();
+
+console.log(rect);
+console.log('Is rect an instance of Rectangle?', rect instanceof Rectangle);// true
+console.log('Is rect an instance of Shape?', rect instanceof Shape);// true
+rect.move(1, 1); // Outputs, 'Shape moved.'
+```
+#### 22. How could you implement cache to save calculation time for a recursive fibonacci function ?
+`var memo = {}` and `if(n in memo)`
+```javascript
+function fab1(n){
+  if(n < 2){
+    return 1;
+  }
+  return fab1(n-2) + fab1(n-1);
+}
+
+function fab2(n){
+  var memo = {};
+  function f(n){
+    var value;
+    if(n in memo){
+      value = memo[n];
+    }else{
+      if(n < 2){
+        value = 1;
+      }else{
+        value = f(n-2) + f(n-1);
+      }
+      memo[n] = value;
+    }
+    return value;
+  }
+  return f(n);
+}
+var a1 = performance.now();
+console.log(fab1(20));
+var b1 = performance.now();
+console.log("fab1 take " + (b1 - a1) + " ms");
+
+var a2 = performance.now();
+console.log(fab2(20));
+var b2 = performance.now();
+console.log("fab2 take " + (b2 - a2) + " ms");
+
+/**Log
+10946
+"fab1 take 1.4499999999999993 ms"
+10946
+"fab2 take 0.5650000000000013 ms"
+**/
+```
+#### 23. How to make inner elements in div scrollable ?
+`var memo = {}` and `if(n in memo)`
+```javascript
+function fab1(n){
+  if(n < 2){
+    return 1;
+  }
+  return fab1(n-2) + fab1(n-1);
+}
+
+function fab2(n){
+  var memo = {};
+  function f(n){
+    var value;
+    if(n in memo){
+      value = memo[n];
+    }else{
+      if(n < 2){
+        value = 1;
+      }else{
+        value = f(n-2) + f(n-1);
+      }
+      memo[n] = value;
+    }
+    return value;
+  }
+  return f(n);
+}
+var a1 = performance.now();
+console.log(fab1(20));
+var b1 = performance.now();
+console.log("fab1 take " + (b1 - a1) + " ms");
+
+var a2 = performance.now();
+console.log(fab2(20));
+var b2 = performance.now();
+console.log("fab2 take " + (b2 - a2) + " ms");
+
+/**Log
+10946
+"fab1 take 1.4499999999999993 ms"
+10946
+"fab2 take 0.5650000000000013 ms"
+**/
+```
+#### 24. How to check if object is empty ?
+```javascript
+Object.keys(a).length === 0
 ```
