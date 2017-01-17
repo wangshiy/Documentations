@@ -522,56 +522,11 @@ console.log("fab2 take " + (b2 - a2) + " ms");
 "fab2 take 0.5650000000000013 ms"
 **/
 ```
-#### 23. How to make inner elements in div scrollable ?
-`var memo = {}` and `if(n in memo)`
-```javascript
-function fab1(n){
-  if(n < 2){
-    return 1;
-  }
-  return fab1(n-2) + fab1(n-1);
-}
-
-function fab2(n){
-  var memo = {};
-  function f(n){
-    var value;
-    if(n in memo){
-      value = memo[n];
-    }else{
-      if(n < 2){
-        value = 1;
-      }else{
-        value = f(n-2) + f(n-1);
-      }
-      memo[n] = value;
-    }
-    return value;
-  }
-  return f(n);
-}
-var a1 = performance.now();
-console.log(fab1(20));
-var b1 = performance.now();
-console.log("fab1 take " + (b1 - a1) + " ms");
-
-var a2 = performance.now();
-console.log(fab2(20));
-var b2 = performance.now();
-console.log("fab2 take " + (b2 - a2) + " ms");
-
-/**Log
-10946
-"fab1 take 1.4499999999999993 ms"
-10946
-"fab2 take 0.5650000000000013 ms"
-**/
-```
-#### 24. How to check if object is empty ?
+#### 23. How to check if object is empty ?
 ```javascript
 Object.keys(a).length === 0
 ```
-#### 25. How to implement debounce function ?
+#### 24. How to implement debounce function ?
 Keypoint is debounce will return a closure, inner function access outside `timeout` and do `clearTimeout(timeout);timeout = setTimeout(later,wait);`
 ```javascript
 <!DOCTYPE html>
@@ -610,4 +565,32 @@ Keypoint is debounce will return a closure, inner function access outside `timeo
     </script>
   </body>
 </html>
+```
+#### 25. How to implement privacy in javascript ?
+Use module design pattern i.e. invoke IIFE to create closure and return object that project variables and methods.
+```javascript
+var Exposer = (function(){
+  var privateCount = 0;
+  
+  var privateFunc = function(){
+    privateCount++;
+  }
+  
+  var incre = function(){
+    privateFunc();
+  }
+  
+  var display = function(){
+    console.log(privateCount);
+  }
+  
+  return {
+    incre: incre,
+    display: display
+  };
+})();
+
+Exposer.display();
+Exposer.incre();
+Exposer.display();
 ```
