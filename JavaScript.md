@@ -677,3 +677,8 @@ var instance2 = Singleton.getInstance();
  
 console.log("Same instance? " + (instance1 === instance2));
 ```
+#### 28. How to remove last two characters from a string ?
+```javascript
+var str = "hello world!!!"
+console.log(str.slice(0,-2));
+```
