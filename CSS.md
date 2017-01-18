@@ -87,3 +87,6 @@ Specify div's height and width and then set `overflow-x` or `overflow-y` to `scr
   </body>
 </html>
 ```
+#### 4. What is CSS specificity and how is it calculated ?
+Specificity determines, which CSS rule is applied by the browsers.
+It is calculated based on the sum of each matching selector's weight (id > class > tag)
