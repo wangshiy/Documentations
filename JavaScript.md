@@ -128,7 +128,7 @@ function getMax(arr){
 }
 console.log(getMax(a)); // 10
 ```
-#### 10. How could you set a prefix before everything you log? for example, if you log('my message') it will log: "(app) my message"
+#### 10. How could you set a prefix before everything you log? for example, if you log('my','message') it will log: "(app) my message"
 Convert array-like arguments to array: `var args = [].slice.call(arguments);`
 ```javascript
 function log(){
