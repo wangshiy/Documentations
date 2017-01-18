@@ -682,3 +682,20 @@ console.log("Same instance? " + (instance1 === instance2));
 var str = "hello world!!!"
 console.log(str.slice(0,-2));
 ```
+#### 29. What is the difference between `.map()` and `.forEach()` ?
+`.map()` returns a new array so it will not pollute input array, while `.forEach()` doesn't return, it just execute function based on each element, so it may pollute input array
+```javascript
+var a = [1,2,3,4,5];
+var b = [1,2,3,4,5];
+var map = a.map(function(elem){
+  return elem*2;
+});
+var forEach = b.forEach(function(elem,index,ary){
+  ary[index] = elem*2;
+});
+
+console.log(map);// [2, 4, 6, 8, 10]
+console.log(a); // [1, 2, 3, 4, 5]
+console.log(forEach); // undefined
+console.log(b); // [2, 4, 6, 8, 10]
+```
