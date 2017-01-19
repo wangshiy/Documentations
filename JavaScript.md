@@ -478,7 +478,7 @@ console.log('Is rect an instance of Shape?', rect instanceof Shape);// true
 rect.move(1, 1); // Outputs, 'Shape moved.'
 ```
 #### 23. How could you implement cache to save calculation time for a recursive fibonacci function ?
-`var memo = {}` and `if(n in memo)`
+`var memo = {}` and `if(n in memo)` and need the closure function to access outside memo object
 ```javascript
 function fab1(n){
   if(n < 2){
