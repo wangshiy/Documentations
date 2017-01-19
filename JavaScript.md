@@ -734,3 +734,15 @@ console.log(a); // [1, 2, 3, 4, 5]
 console.log(forEach); // undefined
 console.log(b); // [2, 4, 6, 8, 10]
 ```
+#### 31. How to implement decorator design pattern in javascript ?
+A function decorator accepts a function, wraps (or decorates) it’s call and returns the wrapper, which modifies/extends its behavior.
+The core code is to return a closure function `wrapper` and do `return f.apply(this,arguments)` in the wrapper
+```javascript
+function decorator(f){
+  function wrapper(){
+    return f.apply(this, arguments);
+  }
+
+  return wrapper;
+}
+```
