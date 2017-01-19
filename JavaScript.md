@@ -566,6 +566,41 @@ Keypoint is debounce will return a closure, inner function access outside `timeo
   </body>
 </html>
 ```
+We can also use decorator design pattern as below
+```javascript
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+  <input id="myInput">
+  <script>
+    var myInput = document.getElementById("myInput");
+
+    function debounce(func,wait){
+      var timeoutId;
+
+      function wrapper(){
+        if(timeoutId){
+          clearTimeout(timeoutId);
+          timeoutId = setTimeout(func,wait);
+        }else{
+          timeoutId = setTimeout(func,wait);
+        }
+      }
+
+      return wrapper;
+    }
+
+    function execute(){
+      console.log("type");
+    }
+
+    myInput.addEventListener("keyup",debounce(execute,250),false);
+  </script>
+</body>
+</html>
+```
 #### 26. How to implement privacy in javascript ?
 Use module design pattern i.e. invoke IIFE to create closure and return object that project variables and methods.
 ```javascript
