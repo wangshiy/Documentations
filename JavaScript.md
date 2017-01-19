@@ -313,8 +313,8 @@ console.log(getDom(dom1,dom2,target).innerHTML);
   </body>
 </html>
 ```
-#### 17. How many childNodes are there in the div ?
-5. Because text node between elements also counts
+#### 18. How many childNodes are there in the div ?
+5 childNodes. Because text node between elements also counts
 ```javascript
 <!DOCTYPE html>
 <html>
@@ -352,7 +352,7 @@ function myFunction() {
 </body>
 </html>
 ```
-#### 18. Given an array, return it's flattened structure(skip objects), write both recursive and iterative version ?
+#### 19. Given an array, return it's flattened structure(skip objects), write both recursive and iterative version ?
 Recursive
 ```javascript
 Array.prototype.flatten = function(mutable) {
@@ -426,7 +426,7 @@ var test2 = flatten(array, true);
 test2[15].name = "xyz";
 console.log(test2, array); // mutate array
 ```
-#### 19. How to reverse a string ?
+#### 20. How to reverse a string ?
 ```javascript
 String.prototype.reverse = function(){
   return this.split('').reverse().join('');
@@ -435,7 +435,7 @@ String.prototype.reverse = function(){
 var str = "hello world!";
 console.log(str.reverse());
 ```
-#### 20. How could you make this work [1,2,3,4,5].duplicator(); // [1,2,3,4,5,1,2,3,4,5] ?
+#### 21. How could you make this work [1,2,3,4,5].duplicator(); // [1,2,3,4,5,1,2,3,4,5] ?
 ```javascript
 Array.prototype.duplicate = function(){
   return this.concat(this);
@@ -444,7 +444,7 @@ Array.prototype.duplicate = function(){
 var a = [1,2,7,3,4,5];
 console.log(a.duplicate());
 ```
-#### 21. How to implement javascript inheritance ?
+#### 22. How to implement javascript inheritance ?
 `Child.prototype = Object.create(Parent.prototype)` and `Child.prototype.constructor = Child`
 ```javascript
 // Shape - superclass
@@ -477,7 +477,7 @@ console.log('Is rect an instance of Rectangle?', rect instanceof Rectangle);// t
 console.log('Is rect an instance of Shape?', rect instanceof Shape);// true
 rect.move(1, 1); // Outputs, 'Shape moved.'
 ```
-#### 22. How could you implement cache to save calculation time for a recursive fibonacci function ?
+#### 23. How could you implement cache to save calculation time for a recursive fibonacci function ?
 `var memo = {}` and `if(n in memo)`
 ```javascript
 function fab1(n){
@@ -522,11 +522,11 @@ console.log("fab2 take " + (b2 - a2) + " ms");
 "fab2 take 0.5650000000000013 ms"
 **/
 ```
-#### 23. How to check if object is empty ?
+#### 24. How to check if object is empty ?
 ```javascript
 Object.keys(a).length === 0
 ```
-#### 24. How to implement debounce function ?
+#### 25. How to implement debounce function ?
 Keypoint is debounce will return a closure, inner function access outside `timeout` and do `clearTimeout(timeout);timeout = setTimeout(later,wait);`
 ```javascript
 <!DOCTYPE html>
@@ -566,7 +566,7 @@ Keypoint is debounce will return a closure, inner function access outside `timeo
   </body>
 </html>
 ```
-#### 25. How to implement privacy in javascript ?
+#### 26. How to implement privacy in javascript ?
 Use module design pattern i.e. invoke IIFE to create closure and return object that project variables and methods.
 ```javascript
 var Exposer = (function(){
@@ -594,7 +594,7 @@ Exposer.display();
 Exposer.incre();
 Exposer.display();
 ```
-#### 26. How to implement observer design pattern in javascript ?
+#### 27. How to implement observer design pattern in javascript ?
 Two class: `Subject` and `Observer`. Subject maintain a queue of Observers, subscribe/unsubscribe and notify/broadcast function. Observer provide notify function.
 ```javascript
 var Subject = function() {
@@ -652,7 +652,7 @@ subject.notifyAllObservers();
 // Observer 3 is notified!
 // Observer 4 is notified!
 ```
-#### 27. How to implement singleton design pattern in javascript ?
+#### 28. How to implement singleton design pattern in javascript ?
 ```javascript
 var Singleton = (function () {
     var instance;
@@ -677,12 +677,12 @@ var instance2 = Singleton.getInstance();
  
 console.log("Same instance? " + (instance1 === instance2));
 ```
-#### 28. How to remove last two characters from a string ?
+#### 29. How to remove last two characters from a string ?
 ```javascript
 var str = "hello world!!!"
 console.log(str.slice(0,-2));
 ```
-#### 29. What is the difference between `.map()` and `.forEach()` ?
+#### 30. What is the difference between `.map()` and `.forEach()` ?
 `.map()` returns a new array so it will not pollute input array, while `.forEach()` doesn't return, it just execute function based on each element, so it may pollute input array
 ```javascript
 var a = [1,2,3,4,5];
