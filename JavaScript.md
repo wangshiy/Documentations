@@ -775,6 +775,7 @@ XSRF is Cross Site Request Forgery is an attack that forces an end user to execu
 
 Protection:
 - Verify the origin headers matching each other
+
 #### 34. What is XSS attck and how to prevent ?
 XSS is Cross Site Scripting, it is an attack that injects malicious scripts into trusted websites.
 
@@ -782,6 +783,7 @@ Protection:
 - Escape HTML/Attributes/Javascript before insert untrusted data
 - Use `application/json` instead of `text/html` as the Content-Type and read response data from `JSON.parse()`
 - Use HttpOnly cookie flag
+
 #### 35. What is MITM attck and how to prevent ?
 MITM is Man In The Middle, it is an attack that relays or alters the communications between two parties that each believes communicate with each other directly.
 
@@ -789,5 +791,6 @@ Protection:
 - Use HTTPS
 
 Because browser 
+
 1. Checks received certificate info matches the server info
 2. Certificate must be valid and signed by the browser trusts Certification Authority (CA)
