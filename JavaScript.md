@@ -746,3 +746,27 @@ function decorator(f){
   return wrapper;
 }
 ```
+#### 31.1. Create a function makeLogging(f) which takes an arbitrary function f, and makes a wrapper over it which logs calls. The wrapper should have a static outputLog() method to output the log.
+Should work like this:
+```javascript
+    function work(a,b) { /* arbitrary function */ }
+
+    function makeLogging(f) { /* your code */ }
+
+    work = makeLogging(work)
+
+    // now work should log it's calls somewhere (but not in global)
+    work(1,2)
+    work(5,6)
+    work.outputLog() // <-- should alert('1,2'), alert('5,6')
+```
+No modifications of work are allowed. Your code should reside only in makeLogging.
+#### 32. Difference between class inheritance and prototype inheritance ?
+Class Inheritance: class is the blueprint to instantiate instance, classed inherit from classes and create hierachical class taxonomies. 
+
+Problems:
+- Tight coupling
+- Inflexible hierarchy
+- Gorilla/banana problem
+
+Prototype Inheritance: prototype is a working object, and object directly inherits from object.
