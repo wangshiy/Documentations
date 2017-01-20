@@ -763,10 +763,8 @@ Should work like this:
 No modifications of work are allowed. Your code should reside only in makeLogging.
 #### 32. Difference between class inheritance and prototype inheritance ?
 Class Inheritance: class is the blueprint to instantiate instance, classed inherit from classes and create hierachical class taxonomies. 
-
 Problems:
 - Tight coupling
 - Inflexible hierarchy
 - Gorilla/banana problem
-
 Prototype Inheritance: prototype is a working object, and object directly inherits from object.
