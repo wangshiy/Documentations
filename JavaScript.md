@@ -842,3 +842,12 @@ Because browser
 </body>
 </html>
 ```
+#### 37. What is the difference between `.childNodes` and `.children` ?
+`.children`: return the children whose types are element
+`.childNodes`: return the children whose types are node, i.e. including textNode
+```javascript
+var el = document.createElement("div");
+el.textContent = "foo"
+el.childNodes.length === 1; // TextNode is a node child
+el.children.length === 0; // no Element children
+```
