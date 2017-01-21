@@ -794,3 +794,51 @@ Because browser
 
 1. Checks received certificate info matches the server info
 2. Certificate must be valid and signed by the browser trusts Certification Authority (CA)
+
+#### 36. How to make an accordion ?
+`this.classList.toggle()` and `this.nextElementSibling.style`
+```javascript
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .accordion:hover,.active{
+      background-color: #ddd;
+    }
+    .panel{
+      display:none;
+    }
+  </style>
+</head>
+<body>
+  <h2 class="accordion">section1</h2>
+  <div class="panel">
+    <p>content1</p>
+    <span>content1</span>
+  </div>
+  
+  <h2 class="accordion">section2</h2>
+  <div class="panel">
+    <p>content2</p>
+    <span>content2</span>
+  </div>
+  
+  <script>
+    var accordions = document.getElementsByClassName("accordion");
+    function toggleDisplay(){
+      this.classList.toggle("active");
+
+      var styleProp = this.nextElementSibling.style;
+      if(styleProp.display === "none" || styleProp.display === ""){
+        styleProp.display = "block";
+      }else{
+        styleProp.display = "none";
+      }
+    }
+    for(var i = 0; i < accordions.length; i++){
+      accordions[i].addEventListener("click",toggleDisplay,false);
+    }
+  </script>
+</body>
+</html>
+```
