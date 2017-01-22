@@ -761,6 +761,85 @@ Should work like this:
     work.outputLog() // <-- should alert('1,2'), alert('5,6')
 ```
 No modifications of work are allowed. Your code should reside only in makeLogging.
+```javascript
+function work(a,b){
+  console.log("work");
+}
+ 
+function makeLogging(f) { 
+  var log = [];
+ 
+  function wrapper() {
+    log.push(arguments);
+    return f.apply(this, arguments);
+  }
+ 
+  wrapper.outputLog = function() {  
+    for(var i = 0; i < log.length; i++){
+      console.log(Array.prototype.join.call(log[i], ','));
+    }
+  }
+ 
+  return wrapper
+}
+ 
+work = makeLogging(work);
+ 
+work(1, 10);
+work(2, 20);
+work.outputLog();
+```
+#### 31.2. Create a function makeCaching(f) which takes a one-argument function f(arg), and makes a wrapper over it which caches calls. The wrapper should have a static flush() method to flush the cache.
+
+Function f is allowed to have only one argument.
+
+Should work like this:
+```javascript
+    function work(arg) { return Math.random()*arg }
+
+    function makeCaching(f) { /* your code */ }
+
+    work = makeCaching(work);
+
+    var a = work(1);
+    var b = work(1);
+    alert( a == b ) // true (cached)
+
+    work.flush()    // clears the cache
+
+    b = work(1)
+    alert( a == b ) // false
+```
+No modifications of work are allowed. Your code should reside only in makeCaching.
+```javascript
+function work(arg){ 
+  return Math.random()*arg;
+}
+ 
+function makeCaching(f) { 
+  var cache = {};  
+ 
+  function wrapper(arg) {
+    if (!(arg in cache)) {
+      cache[arg] = f.call(this, arg);
+    }
+    return cache[arg];
+  }
+ 
+  wrapper.flush = function() {  
+    cache = {};
+  }
+ 
+  return wrapper;
+}
+ 
+work = makeCaching(work);
+ 
+alert( work(1) );
+alert( work(1) );
+work.flush();      
+alert( work(1) );
+```
 #### 32. Difference between class inheritance and prototype inheritance ?
 Class Inheritance: class is the blueprint to instantiate instance, classed inherit from classes and create hierachical class taxonomies. 
 
