@@ -92,7 +92,9 @@ Specificity determines, which CSS rule is applied by the browsers.
 It is calculated based on the sum of each matching selector's weight (id > class > tag)
 #### 5. What is CSS child selector, general siblings selector and adjacent sibling selector ?
 `>`: return all direct children of the element
+
 `~`: return all following siblings of the element
+
 `+`: return the immediate following sibling of the element
 ```javascript
 <!DOCTYPE html>
