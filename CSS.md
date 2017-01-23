@@ -90,3 +90,55 @@ Specify div's height and width and then set `overflow-x` or `overflow-y` to `scr
 #### 4. What is CSS specificity and how is it calculated ?
 Specificity determines, which CSS rule is applied by the browsers.
 It is calculated based on the sum of each matching selector's weight (id > class > tag)
+#### 5. What is CSS child selector, general siblings selector and adjacent sibling selector ?
+`>`: return all direct children of the element
+`~`: return all following siblings of the element
+`+`: return the immediate following sibling of the element
+```javascript
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .hover-content{
+      display:none;
+    }
+    #hover-trigger1:hover + .hover-content{
+      display:block;
+    }
+    #hover-trigger2:hover ~ .hover-content{
+      display:block;
+    }
+    #hover-trigger3:hover > .hover-content{
+      display:block;
+    }
+  </style>
+</head>
+<body>
+  <h2 id="hover-trigger1">Hover Title 1</h2>
+  <div class="hover-content">
+    <p>This is the hover content 1</p>
+  </div>
+  <div class="hover-content">
+    <p>This is the hover content 1</p>
+  </div>
+  <h2 id="hover-trigger2">Hover Title 2</h2>
+  <div class="hover-content">
+    <p>This is the hover content 2</p>
+  </div>
+  <div class="hover-content">
+    <p>This is the hover content 2</p>
+  </div>
+  <div id="hover-trigger3">Hover Title 3
+    <div class="hover-content">
+      <p>This is the hover content 3</p>
+    </div>
+    <div class="hover-content">
+      <p>This is the hover content 3</p>
+    </div>
+    <div>
+      <p class="hover-content">This is the hover content 3</p>
+    </div>
+  </div>
+</body>
+</html>
+```
