@@ -843,6 +843,38 @@ alert( work(1) );
 #### 31.3. How to cache more than one argument function execution ?
 ```javascript
 function work(a,b,c){
+  return Math.random()*a*b*c;
+}
+
+function makeCache(f){
+  var cache = {};
+  
+  function wrapper(){
+    var key = Array.prototype.join.call(arguments,",");
+    if(!(key in cache)){
+      cache[key] = f.apply(this,arguments);
+    }
+    return cache[key];
+  }
+  
+  function showCache(){
+    return cache;
+  }
+  
+  return {
+    wrapper:wrapper,
+    showCache:showCache
+  };
+}
+
+var newWork = makeCache(work);
+console.log(newWork.wrapper(1,2,3));
+console.log(newWork.wrapper(1,2,4));
+console.log(newWork.wrapper(1,2,3));
+console.log(newWork.showCache());
+```
+```javascript
+function work(a,b,c){
   return Math.random() * a * b * c;
 }
  
