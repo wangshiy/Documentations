@@ -840,6 +840,39 @@ alert( work(1) );
 work.flush();      
 alert( work(1) );
 ```
+#### 31.3. How to cache more than one argument function execution ?
+```javascript
+function work(a,b,c){
+  return Math.random() * a * b * c;
+}
+ 
+function makingCache(f){
+  var cache = {};
+   
+  function wrapper(){
+    var args = Array.from(arguments);//typeof arguments is object, so this is to convert array like object
+    console.log(args);
+    var key = args.join(",");
+    if(!(key in cache)){
+      cache[key] = f.apply(this,args);
+    }
+    return cache[key];
+  }
+   
+  wrapper.showCache = function(){
+    return cache;
+  }
+   
+  return wrapper;
+}
+ 
+work = makingCache(work);
+ 
+console.log(work(1,2,3));
+console.log(work(1,2,3));
+ 
+console.log(work.showCache());
+```
 #### 32. Difference between class inheritance and prototype inheritance ?
 Class Inheritance: class is the blueprint to instantiate instance, classed inherit from classes and create hierachical class taxonomies. 
 
