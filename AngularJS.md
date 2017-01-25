@@ -138,54 +138,48 @@ Register a `service` to do `$rootScope.$broadcast("channel1",{})` and then contr
 - `$digest()` takes no argument, `$apply()` can take a callback function
 - `$digest()` impacts on current `$scope` and its children, `$apply()` impacts on `$rootScope.$digest()`
 ``` javascript
-<!doctype>
+<!DOCTYPE html>
 <html>
-  <head>
-  	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
-  </head>
-  <body ng-app="myApp" ng-controller="myCtrl">
-    <script type="text/javascript">
-    	var myApp = angular.module("myApp",[]);
-
-    	myApp.service("broadcastService",function($rootScope){
-    		console.log("broadcastService init!");
-
-    		var channels = {
-    			channel1: {channelId:"", msg:"this is channel1"},
-    			channel2: {channelId:"", msg:"this is channel2"}
-    		};
-
-    		function boardcastHandler(channel){
-    			$rootScope.$broadcast(channel, channels[channel]);
-    		}
-
-    		this.start = function(channel){
-                var intervalId = setInterval(boardcastHandler.bind(null,channel),1000);
-                channels[channel].channelId = intervalId;
-    		}
-
-    		this.stop = function(channel){
-    			clearInterval(channels[channel].channelId);
-    			channels[channel].channelId = "";
-    		}
-    		
-    	});
-
-    	myApp.controller("myCtrl",["$scope","broadcastService",function($scope,broadcastService){
-    		console.log("myCtrl init!");
-    		function eventHandler(event,res){
-    			console.log(event,res);
-    		}
-    		broadcastService.start("channel1");
-    		$scope.$on("channel1", eventHandler);
-
-    		setTimeout(function(){
-    			broadcastService.stop("channel1");
-    			broadcastService.start("channel2");
-    			$scope.$on("channel2", eventHandler);
-    		},5000);
-    	}]);
-    </script>
-  </body>
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+</head>
+<body ng-app="myApp" ng-controller="myCtrl">
+  <p>{{date.time}}</p>
+  <button ng-click="updateTime()">ngClick Button</button>
+  <button id="eventListenerBtn">eventListener Button</button>
+  
+  <script>
+    var myApp = angular.module("myApp",[]);
+    var myController = myApp.controller("myCtrl",["$scope","$timeout",function($scope,$timeout){
+      $scope.updateTime = function(){
+        $scope.date = {time: new Date()};
+      };
+      
+      var clickBtn = document.getElementById("eventListenerBtn");
+      clickBtn.addEventListener("click",function(){
+        $scope.date = {time: new Date()};
+        $scope.$digest();//important
+      });
+      
+      setTimeout(function(){
+        console.log("update1");
+        $scope.date = {time: new Date()};
+        $scope.$digest();//important
+      },3000);
+      
+      setTimeout(function(){
+        console.log("update2");
+        $scope.$apply(function(){
+          $scope.date = {time: new Date()};
+        });//important
+      },6000);
+      
+      $timeout(function(){
+        console.log("update3");
+        $scope.date = {time: new Date()};
+      },9000);//$timeout will trigger $digest but setTimeout will not
+    }]);
+  </script>
+</body>
 </html>
 ```
