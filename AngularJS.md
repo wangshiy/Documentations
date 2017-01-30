@@ -133,3 +133,53 @@ Register a `service` to do `$rootScope.$broadcast("channel1",{})` and then contr
   </body>
 </html>
 ```
+#### 4. Difference between $apply() and $digest() ?
+- `$digest()` is called automatically after like `ng-click`, `$apply()` is called manually
+- `$digest()` takes no argument, `$apply()` can take a callback function
+- `$digest()` impacts on current `$scope` and its children, `$apply()` impacts on `$rootScope.$digest()`
+``` javascript
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+</head>
+<body ng-app="myApp" ng-controller="myCtrl">
+  <p>{{date.time}}</p>
+  <button ng-click="updateTime()">ngClick Button</button>
+  <button id="eventListenerBtn">eventListener Button</button>
+  
+  <script>
+    var myApp = angular.module("myApp",[]);
+    var myController = myApp.controller("myCtrl",["$scope","$timeout",function($scope,$timeout){
+      $scope.updateTime = function(){
+        $scope.date = {time: new Date()};
+      };
+      
+      var clickBtn = document.getElementById("eventListenerBtn");
+      clickBtn.addEventListener("click",function(){
+        $scope.date = {time: new Date()};
+        $scope.$digest();//important
+      });
+      
+      setTimeout(function(){
+        console.log("update1");
+        $scope.date = {time: new Date()};
+        $scope.$digest();//important
+      },3000);
+      
+      setTimeout(function(){
+        console.log("update2");
+        $scope.$apply(function(){
+          $scope.date = {time: new Date()};
+        });//important
+      },6000);
+      
+      $timeout(function(){
+        console.log("update3");
+        $scope.date = {time: new Date()};
+      },9000);//$timeout will trigger $digest but setTimeout will not
+    }]);
+  </script>
+</body>
+</html>
+```
