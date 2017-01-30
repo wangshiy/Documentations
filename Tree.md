@@ -133,3 +133,52 @@ console.log(iterator.hasNext() + " : " + iterator.next());
 console.log(iterator.hasNext() + " : " + iterator.next());
 console.log(iterator.hasNext() + " : " + iterator.next());
 ```
+#### 3. [Leetcode#102] Binary Tree Level Order Traversal ? 
+BFS, and needs two counters for curLvNodes and nextLvNodes
+```javascript
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[][]}
+ */
+var levelOrder = function(root) {
+    var result = [];
+    if(root === null){
+        return result;
+    }
+    
+    var queue = [];
+    queue.push(root);
+    var temp = [];
+    var curLvCount = 1;
+    var nextLvCount = 0;
+    
+    while(queue.length > 0){
+        var node = queue.shift();
+        temp.push(node.val);
+        curLvCount--;
+        if(node.left !== null){
+            nextLvCount++;
+            queue.push(node.left);
+        }
+        if(node.right !== null){
+            nextLvCount++;
+            queue.push(node.right);
+        }
+        if(curLvCount === 0){
+            result.push(temp);
+            temp = [];
+            curLvCount = nextLvCount;
+            nextLvCount = 0;
+        }
+    }
+    
+    return result;
+};
+```
