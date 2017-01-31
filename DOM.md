@@ -6,6 +6,7 @@
 `window.onload`: fires when DOM is ready and all other contents images, css and scripts finish loaded
 `document.onload`: fires when DOM is ready 
 #### 3. Implement `getElementsByAttribute` ?
+`elem.hasAttribute(attr)` and `elem.getAttribute(attr)`
 ``` JavaScript
 <!DOCTYPE html>
 <html>
@@ -21,23 +22,30 @@
       </div>
 
       <script>
-	Document.prototype.getElementsByAttribute = function(attr){
-	  var elems = document.getElementsByTagName("*");
-	  var elem;
-	  //console.log(elems);
-	  var result = [];
-	  for(var i = 0; i < elems.length; i++){
-	    elem = elems[i];
-	    //console.log("elem",elem);
-	    //console.log("attr",elem.getAttribute(attr));
-	    if(elem && elem.hasAttribute(attr)){
-	      result.push(elem);
-	    }
-	  }
-	  return result;
-	};
+    Document.prototype.getElementsByAttribute = function(attr,value){
+      var elems = document.getElementsByTagName("*");
+      var elem;
+      //console.log(elems);
+      var result = [];
+      for(var i = 0; i < elems.length; i++){
+        elem = elems[i];
+        //console.log("elem",elem);
+        //console.log("attr",elem.getAttribute(attr));
+        if(value === undefined){
+          if(elem && elem.hasAttribute(attr)){
+            result.push(elem);
+          }
+        }else{
+          if(elem && elem.hasAttribute(attr) && elem.getAttribute(attr) === value){
+            result.push(elem);
+          }     
+        }
+      }
+      return result;
+    };
 
-	console.log(document.getElementsByAttribute("data-impl").length);// 3
+    console.log(document.getElementsByAttribute("data-impl").length);// 3
+    console.log(document.getElementsByAttribute("data-impl","1").length);// 1
       </script>
     </body>
 </html>
