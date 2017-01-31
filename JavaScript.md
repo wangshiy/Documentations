@@ -15,28 +15,52 @@ console.log(typeof a); // "object"
 #### 2. Differences between `==` and `===` ?
 `==`: check value </br>
 `===`: check type and value
-#### 3. How to compare equality between two objects ?
+#### 3. How to compare equality between two objects(contains only object or array) ?
 Normal comparison is to compare reference, we need a deep object comparison
 ```javascript
-function isEqual(a,b){
-  var aProperties = Object.getOwnPropertyNames(a);
-  var bProperties = Object.getOwnPropertyNames(b);
-  if(aProperties.length !== bProperties.length){
-    return false;
-  }
-  for(var i = 0; i < aProperties.length; i++){
-    var propName = aProperties[i];
-    if(a[propName] !== b[propName]){
-      return false;
+var obj1 = {
+  name:"jim",
+  a:{name:"tom",age:18},
+  b:[1,{salary:100,age:[18]}]
+};
+
+var obj2 = {
+  name:"jim",
+  b:[1,{salary:100,age:[18]}],
+  a:{name:"tom",age:18}
+};
+
+var obj3 = {name:"jim",age:16};
+var obj4 = {name:"jim",age:16};
+
+console.log(compareObjects(obj1,obj2));//true
+console.log(compareObjects(obj3,obj4));//true
+
+function compareObjects(o, p){
+    var keysO = Object.keys(o).sort();
+    var keysP = Object.keys(p).sort();
+    if(keysO.length !== keysP.length)
+        return false;//not the same nr of keys
+    if(keysO.join('') !== keysP.join(''))
+        return false;//different keys
+    for(var i=0;i<keysO.length;++i){
+        if(o[keysO[i]] instanceof Array){
+            if (!(p[keysO[i]] instanceof Array))
+                return false;
+            if (compareObjects(o[keysO[i]], p[keysO[i]]) === false)
+                return false;
+        }else if(o[keysO[i]] instanceof Object){
+            if (!(p[keysO[i]] instanceof Object))
+                return false;
+            if (compareObjects(o[keysO[i]], p[keysO[i]]) === false)
+                return false;
+        }else{
+            if (o[keysO[i]] !== p[keysO[i]])//change !== to != for loose comparison
+                return false;//not the same value
+        }
     }
-  }
-  return true;
+    return true;
 }
-
-var obj1 = {name:"jim",age:16};
-var obj2 = {name:"jim",age:16};
-
-console.log(isEqual(obj1,obj2)); // true
 ```
 #### 4. Differences between `Object.keys()` and `Object.getOwnPropertyNames()` ?
 `Object.keys()`: return an array of all **enumerable** and **own** properties</br>
