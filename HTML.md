@@ -31,3 +31,9 @@ Use `<a></a>` to wrap `<img>`
 ```html
 <a href="https://www.google.com" target="_blank" ><img src="">></a>
 ```
+#### 6. How to ensure website accessibility ?
+- Semantic HTML
+- ARIA role tag
+- <img alt="this is a img">
+- <form><label for="test"></label><input name="test" /></form>
+
