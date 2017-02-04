@@ -10,18 +10,18 @@
 ``` JavaScript
 <!DOCTYPE html>
 <html>
-    <head>
-    </head>
-    <body>
-      <p data-impl="1"></p>
-      <div>
-        <span data-impl=""></spam>
-      </div>
-      <div data-impl="3">
-        <span></span>
-      </div>
+  <head>
+  </head>
+  <body>
+    <p data-impl="1">j</p>
+    <div>
+      <span data-impl="">k</span>
+    </div>
+    <div data-impl="3">
+      <span>l</span>
+    </div>
 
-      <script>
+    <script>
     Document.prototype.getElementsByAttribute = function(attr,value){
       var elems = document.getElementsByTagName("*");
       var elem;
@@ -46,8 +46,8 @@
 
     console.log(document.getElementsByAttribute("data-impl").length);// 3
     console.log(document.getElementsByAttribute("data-impl","1").length);// 1
-      </script>
-    </body>
+    </script>
+  </body>
 </html>
 ```
 #### 4. Add/remove a class from the element ?
@@ -94,5 +94,64 @@
     addClass("#target2", "one");    
   </script>
 </body>
+</html>
+```
+#### 5. Implement a stop watch ?
+When you pause remember to store the current show time for the next start to accumulate
+``` JavaScript
+<!DOCTYPE html>
+<html>
+  <head>
+  </head>
+  <body>
+    <button id="reset">Reset</button> 
+    <button id="start-pause">Start/Pause</button> 
+    <div id="displayed-time">0.000 </div>
+    
+    <script>
+      var disDiv = document.getElementById("displayed-time");
+      var startStopBtn = document.getElementById("start-pause");
+      var resetBtn = document.getElementById("reset");
+
+      var timer = 0;
+      var freezeTimeAccumulate = 0;
+      var counter = 0;
+
+      var intervalId;
+
+      function startStopHandler(){
+        var loadingTime = new Date().getTime();
+        counter++;
+        if(counter % 2 !== 0){
+          //start
+          intervalId = setInterval(function(){
+            timer = new Date().getTime() - loadingTime;
+            renderHelper(timer,freezeTimeAccumulate);
+          },1);
+        }else{
+          //pause
+          freezeTimeAccumulate = parseFloat(disDiv.innerHTML)*1000;
+          clearInterval(intervalId);
+        }
+      }
+
+      function renderHelper(curTime, accumTime){
+        disDiv.innerHTML = parseFloat((curTime + accumTime)/1000).toFixed(3);
+      }
+
+      function resetHandler(){
+        timer = 0;
+        freezeTimeAccumulate = 0;
+        counter = 0;
+        disDiv.innerHTML = parseFloat(0/1000).toFixed(3);
+        if(intervalId !== undefined){
+          clearInterval(intervalId);
+        }
+      }
+
+      startStopBtn.addEventListener("click", startStopHandler, false);
+      resetBtn.addEventListener("click", resetHandler, false);
+    </script>
+  </body>
 </html>
 ```
