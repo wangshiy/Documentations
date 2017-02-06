@@ -182,3 +182,53 @@ var levelOrder = function(root) {
     return result;
 };
 ```
+#### 4. Binary Tree width ? 
+Height should be init as an array to call by reference
+
+Recursion should have ablility to update its parent height so that height and width recursions are in the same function to optimize => O(n)
+``` JavaScript
+W(T) = max(W(T.left), W(T.right), LongestPath(T));
+LongestPath(T) = 1 + Height(T.left) + Height(T.right);
+Height(T) = 1 + max(Height(T.left), Height(T.right));
+```
+``` JavaScript
+function TreeNode(val) {
+    this.val = val;
+    this.left = this.right = null;
+}
+
+var treeWidth = function(root) { 
+    var height = [0];
+
+    function diameter(rootNode,heightVal){
+        if(rootNode === null){
+            heightVal[0] = 0;
+            return 0;
+        }
+
+        var leftHeight = [0];
+        var rightHeight = [0];
+        var leftDiam = diameter(rootNode.left, leftHeight);
+        var rightDiam = diameter(rootNode.right, rightHeight);
+        heightVal[0] = 1 + Math.max(leftHeight[0], rightHeight[0]);
+
+        return Math.max(leftDiam,rightDiam,1+leftHeight[0]+rightHeight[0]);
+    }
+
+    return diameter(root,height);
+};
+
+var nodeRoot = new TreeNode(1);
+var node1 = new TreeNode(4);
+var node2 = new TreeNode(6);
+var node3 = new TreeNode(7);
+var node4 = new TreeNode(2);
+var node5 = new TreeNode(3);
+nodeRoot.left = node1;
+node1.left = node2;
+node1.right = node3;
+nodeRoot.right = node4;
+node4.left = node5;
+
+console.log(treeWidth(nodeRoot));
+```
