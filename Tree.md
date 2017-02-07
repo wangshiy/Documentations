@@ -232,3 +232,43 @@ node4.left = node5;
 
 console.log(treeWidth(nodeRoot));
 ```
+#### 5. [Leetcode#102](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/) Binary Tree LCA ? 
+If found node is the target, then node return itself to its parent, finally parent return left or right or itself.
+Time O(n), Space O(1)
+``` JavaScript
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @param {TreeNode} p
+ * @param {TreeNode} q
+ * @return {TreeNode}
+ */
+var lowestCommonAncestor = function(root, p, q) {
+    if(root === null){
+        return null;
+    }
+    
+    if(root === p || root === q){
+        return root;
+    }
+    
+    var l = lowestCommonAncestor(root.left,p,q);
+    var r = lowestCommonAncestor(root.right,p,q);
+    
+    if(l === null && r === null){
+        return null;
+    }
+    
+    if(l !== null && r !== null){
+        return root;
+    }
+    
+    return l !== null ? l : r;
+};
+```
