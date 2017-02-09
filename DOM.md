@@ -155,3 +155,62 @@ When you pause remember to store the current show time for the next start to acc
   </body>
 </html>
 ```
+#### 6. Implement a responsive nav bar ?
+1. When talk to reponsive the need one html wear two sets of css
+`@media screen and (max-width: 480px){}`
+2. Bind `.classList.toggle()` to the top right hamburger icon
+``` JavaScript
+<!DOCTYPE html>
+<html>
+<head>
+  <style type="text/css">
+    .topNav li{
+      display: inline-block;
+    }
+    #icon{
+      display: none;
+    }
+
+    @media screen and (max-width: 480px){
+      .topNav li{
+        display: none;
+      }
+      .topNav.expand li{
+        display: block;
+      }
+      #icon{
+        display: inline-block;
+        float: right;
+        position: absolute;
+        right: 10px;
+        top: 10px;
+      }
+    }
+    
+  </style>
+</head>
+<body>
+  <div>
+    <ul class="topNav">
+      <li>Menu1</li>
+      <li>Menu2</li>
+      <li>Menu3</li>
+      <li>Menu4</li>
+      <li>Menu5</li>
+      <li>Menu6</li>
+      <li>Menu7</li>
+      <li>Menu8</li>
+      <li>Menu9</li>
+      <li>Menu10</li>
+      <li id="icon" onclick="toggle()">☰</li>
+    </ul>
+  </div>
+  <script type="text/javascript">
+    var topNav = document.getElementsByClassName("topNav")[0];
+    function toggle(){
+      topNav.classList.toggle("expand");
+    }
+  </script>
+</body>
+</html>
+```
