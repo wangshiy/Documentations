@@ -144,3 +144,11 @@ It is calculated based on the sum of each matching selector's weight (id > class
 </body>
 </html>
 ```
+#### 6. What are pros and cons between CSS animation and JS animation ?
+In general, CSS is used for small and static animation, JS is used for complex animation
+- CSS can use GPU acceleration, so it is faster
+- But CSS is can not do very complex and logical animation as JS
+- Also CSS will encoutner browser compatibliltiy issues so may need vendor-prefix
+#### 7. Differences between responsive design and adaptive design ?
+`Responsive design`: be responsive for any given screen width
+`Adaptive design`: be responsive for specific screen width
