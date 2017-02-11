@@ -152,3 +152,7 @@ In general, CSS is used for small and static animation, JS is used for complex a
 #### 7. Differences between responsive design and adaptive design ?
 `Responsive design`: be responsive for any given screen width
 `Adaptive design`: be responsive for specific screen width
+#### 8. Differences between repaint and reflow ?
+reflow is more expensive that repaint
+`repaint`: changes made on elem skin but not the dom layout e.g. visibility, background-color
+`reflow`: changes affected the page layout e.g. resizing page, manipulate dom
