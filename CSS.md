@@ -156,3 +156,35 @@ In general, CSS is used for small and static animation, JS is used for complex a
 reflow is more expensive that repaint
 `repaint`: changes made on elem skin but not the dom layout e.g. visibility, background-color
 `reflow`: changes affected the page layout e.g. resizing page, manipulate dom
+#### 9. What is display flex ?
+flexbox is a new layout mode in css3 and to make elems layout predictably with responsive design
+#### 9.1. How to make a div prefect center inside a div ?
+outside div `display:flex;`, inside div `margin:auto;`
+```javascript
+<!doctype html>
+<html>
+  <head>
+    <style>
+      .flex-container{
+        width:300px;
+        height:300px;
+        background-color:black;
+        display:flex;
+      }
+
+      .flex-item{
+        width:100px;
+        height:100px;
+        background-color:white;
+        margin:auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="flex-container">
+      <div class="flex-item">
+      </div>
+    </div>
+  </body>
+</html>
+```
