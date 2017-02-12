@@ -36,4 +36,28 @@ Use `<a></a>` to wrap `<img>`
 - ARIA role tag
 - <img alt="this is a img">
 - <form><label for="test"></label><input name="test" /></form>
+#### 7. How to create a hamburger mean icon ?
+Use `div` and set `width`, `height`, `background-color` to simulate each line.
+```javascript
+<!doctype html>
+<html>
+  <head>
+    <style>
+      .line{
+        width:30px;
+        height:5px;
+        background-color:black;
+        margin-top:5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+    </div>
+  </body>
+</html>
+```
 
