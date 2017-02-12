@@ -214,3 +214,167 @@ When you pause remember to store the current show time for the next start to acc
 </body>
 </html>
 ```
+#### 7. Make a slideshow ?
+- Design html and css 
+```javascript
+<div>
+  <div class="item-container"></div>
+  ...
+
+  <a><</a>
+  <a>></a>
+
+  <div class="dot-container">
+    <span></span>
+    ...
+  <div>
+<div>
+```
+- write `showSlide(n)` to hide all slides first then light up the curIndex slide and its corresponding dot
+```javascript
+<!doctype html>
+<html>
+  <head>
+    <style>
+      .slides-container{
+        position: relative;
+        border:2px solid black;
+        display: flex;
+        width: 100%;
+      }
+      .slide-item{
+        position: relative; /* make sure inner elem can adjust its position*/
+        border:2px solid red;
+        width:100%;
+        height:600px;
+        margin: auto;
+        animation: fade 1s ease; /* animation */
+      }
+      @keyframes fade{
+        from {opacity: 0;}
+        to {opacity: 1;}
+      }
+      .slide-num{
+        position: absolute; /* make sure inner elem can adjust its position*/
+        z-index: 1; /* make sure to display on top */
+        width: 100%; /* these 2 lines below are to make sure center the absolute position elem */
+        text-align: center;
+      }
+      .slide-img{
+        position: absolute; 
+        z-index: -1;
+        width:100%; /*make sure img fit in div*/
+        max-height: 600px; /*make sure img will not exceed */
+      }
+      .slide-caption{
+        position: absolute;
+        z-index: 1; /* make sure to display on top */
+        bottom:20px;
+        width: 100%; /* these 2 lines below are to make sure center the absolute position elem */
+        text-align: center;
+      }
+      #prev{
+        position:absolute;
+        top: 50%;
+        left:0;
+        cursor: pointer;
+      }
+      #next{
+        position:absolute;
+        top: 50%;
+        right:0;
+        cursor: pointer;
+      }
+      .dot-container{
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        text-align: center;
+        z-index: 2;
+      }
+      .dot-container span{
+        width: 10px;
+        height: 10px;
+        display:inline-block; /* make sure empty span can display*/
+        border-radius: 50%;
+        background-color: black;
+        cursor: pointer;
+      }
+      .dot-container span.active{
+        background-color: #ddd;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="slides-container">
+      <div class="slide-item">
+        <div class="slide-num">1/3</div>
+        <img class="slide-img" src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQHHobhE4IvQbGuIV80hNFIRsC4NfDzQwaK25Og7-ThY7LNdpLwtg"/>
+        <div class="slide-caption">Caption1</div>
+      </div>
+      <div class="slide-item">
+        <div class="slide-num">2/3</div>
+        <img class="slide-img" src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTpn68w5uU2VpQVfyYZSH6rmpVgy08acI7_5gJOTLplNv3pWnFN"/>
+        <div class="slide-caption">Caption2</div>
+      </div>
+      <div class="slide-item">
+        <div class="slide-num">3/3</div>
+        <img class="slide-img" src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTz4fpsH_eEuXkenjNs37XXQSrAvGcrueiG8-rylBzCbKQ6pt8V"/>
+        <div class="slide-caption">Caption3</div>
+      </div>
+
+      <a id="prev" onclick="minusIndex()">&#10094;</a>
+      <a id="next" onclick="plusIndex()">&#10095;</a>
+
+      <div class="dot-container">
+        <span onclick="showSlide(0)"></span>
+        <span onclick="showSlide(1)"></span>
+        <span onclick="showSlide(2)"></span>
+      </div>
+    </div>
+
+    <script type="text/javascript">
+      var curIndex = 0;
+      var endIndex = 2;
+      var slideItems = document.getElementsByClassName("slide-item");
+      var dots = document.querySelectorAll(".dot-container span");
+      showSlide(curIndex);
+
+      function plusIndex(){
+        curIndex++;
+        if(curIndex > 2){
+          curIndex = 0;
+        }else if(curIndex < 0){
+          curIndex = endIndex;
+        }
+
+        showSlide(curIndex);
+      }
+
+      function minusIndex(){
+        curIndex--;
+        if(curIndex > 2){
+          curIndex = 0;
+        }else if(curIndex < 0){
+          curIndex = endIndex;
+        }
+
+        showSlide(curIndex);
+      }
+
+      function showSlide(n){
+        for(var i = 0; i < slideItems.length; i++){
+          slideItems[i].style.display = "none";
+        }
+
+        for(var j = 0; j < dots.length; j++){
+          dots[j].classList.remove("active");
+        }
+
+        slideItems[n].style.display = "block";
+        dots[n].classList.add("active");
+      }
+    </script>
+  </body>
+</html>
+```
