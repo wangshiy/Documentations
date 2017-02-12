@@ -215,7 +215,7 @@ When you pause remember to store the current show time for the next start to acc
 </html>
 ```
 #### 7. Make a slideshow ?
-1. Design html and css 
+- Design html and css 
 ```javascript
 <div>
   <div class="item-container"></div>
@@ -230,7 +230,7 @@ When you pause remember to store the current show time for the next start to acc
   <div>
 <div>
 ```
-2. write `showSlide(n)` to hide all slides first then light up the curIndex slide and its corresponding dot
+- write `showSlide(n)` to hide all slides first then light up the curIndex slide and its corresponding dot
 ```javascript
 <!doctype html>
 <html>

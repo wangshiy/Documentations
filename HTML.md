@@ -34,8 +34,9 @@ Use `<a></a>` to wrap `<img>`
 #### 6. How to ensure website accessibility ?
 - Semantic HTML
 - ARIA role tag
-- <img alt="this is a img">
-- <form><label for="test"></label><input name="test" /></form>
+- `<img alt="this is a img">`
+- `<form><label for="test"></label><input name="test" /></form>`
+
 #### 7. How to create a hamburger mean icon ?
 Use `div` and set `width`, `height`, `background-color` to simulate each line.
 ```javascript
