@@ -31,3 +31,39 @@ function longestContinuousSubarray(a, target){
 var test = [6,3,5,-5,3,2,14];
 console.log(longestContinuousSubarray(test,8)); // 5
 ```
+#### 2. [Leetcode#300](https://leetcode.com/problems/longest-increasing-subsequence/) Longest Increasing Subsequence
+If next one is larger then push to the result, else binary search to replace the first larger one. The result may not be correct but the length is, because replacing will lost nothing.
+```javascript
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var lengthOfLIS = function(nums) {
+    var result = [];
+
+    for(var i = 0; i < nums.length; i++){
+        if(result.length === 0 || nums[i] > result[result.length - 1]){
+            result.push(nums[i]);
+        }else{
+            var start = 0;
+            var end = result.length - 1;
+            while(start + 1 < end){
+                var mid = parseInt(start + (end - start) / 2); //notice
+                if(result[mid] > nums[i]){
+                    end = mid;   
+                }else{
+                    start = mid;
+                }
+            }
+            
+            if(result[start] < nums[i]){
+                result[end] = nums[i];
+            }else{
+                result[start] = nums[i];
+            }
+        }
+    }
+    
+    return result.length;
+};
+```
