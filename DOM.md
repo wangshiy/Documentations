@@ -378,3 +378,35 @@ When you pause remember to store the current show time for the next start to acc
   </body>
 </html>
 ```
+#### 8. How to make a countdown timer ?
+divide and modulus the distance
+```javascript
+<!doctype html>
+<html>
+  <head>
+  </head>
+  <body>
+    <p id="timer"></p>
+    <script type="text/javascript">
+      var timer = document.getElementById("timer");
+      var target = new Date(2017,1,12,17,30,24).getTime();
+
+      setInterval(timerHelper,1000);
+
+      function timerHelper(){
+        var now = new Date().getTime();
+        var distance = target - now;
+
+        var day = Math.floor(distance / (1000*60*60*24));
+        var hour = Math.floor((distance % (1000*60*60*24)) / (1000*60*60));
+        var min = Math.floor((distance % (1000*60*60)) / (1000*60));
+        var sec = Math.floor((distance % (1000*60)) / (1000));
+
+        var timeStr = day + "days" + hour + "hours" + min + "minutes" + sec + "seconds";
+
+        timer.innerHTML = timeStr;
+      }
+    </script>
+  </body>
+</html>
+```
