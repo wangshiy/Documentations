@@ -481,3 +481,43 @@ modal have a grey background div and wrapper a modal content inside
   </body>
 </html>
 ```
+#### 10. How to make, insertBefore, insertAfter, swap and remove DOM element ?
+`parentNode.appendChild()`,`parentNode.insertBefore(newNode, nodeRef)`, `childNode.remove()`
+```javascript
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+  <ul class="ul-container">
+    <li>a</li>
+    <li>c</li>
+    <li>d</li>
+    <li>remove me</li>
+    <li>e</li>
+    <li>h</li>
+    <li>g</li>
+  </ul>
+
+  <script type="text/javascript">
+    var ul = document.getElementsByClassName("ul-container")[0];
+    var c = document.querySelectorAll(".ul-container li")[1];
+    var e = document.querySelectorAll(".ul-container li")[4];
+    var h = document.querySelectorAll(".ul-container li")[5];
+    var g = document.querySelectorAll(".ul-container li")[6];
+    var removeMe = document.querySelectorAll(".ul-container li")[3];
+    var b = document.createElement("li");
+    var bText = document.createTextNode("b");
+    b.appendChild(bText);
+    var f = document.createElement("li");
+    var fText = document.createTextNode("f");
+    f.appendChild(fText);
+
+    console.log(ul.insertBefore(b,c).nextElementSibling); // insertBefore
+    console.log(ul.insertBefore(f,e.nextSibling).previousElementSibling); // insertAfter
+    console.log(ul.insertBefore(g,h).previousElementSibling); // swap
+    console.log(removeMe.remove()); // remove
+  </script>
+</body>
+</html>
+```
