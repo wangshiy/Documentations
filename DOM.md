@@ -410,3 +410,74 @@ divide and modulus the distance
   </body>
 </html>
 ```
+#### 9. How to make a modal ?
+modal have a grey background div and wrapper a modal content inside
+```javascript
+<!DOCTYPE html>
+<html>
+  <head>
+    <style type="text/css">
+      .modal{
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.4);
+        z-index: 1;
+        position: fixed;
+        left: 0;
+        top: 0;
+        display: none;
+      }
+      .modal-content{
+        width: 80%;
+        background-color: white;
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.2);
+        margin: auto;
+      }
+      #closeBtn{
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+      .modal-header, .modal-footer{
+        background-color: #5cb85c;
+        padding: 2px 16px; /* make sure background-color can fill div */
+      }
+    </style>
+  </head>
+  <body>
+    <button onclick="openModal()">open</button>
+
+    <div class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <span id="closeBtn" onclick="closeModal()">&times;</span>
+          <h2>This is a header</h2>
+        </div>
+        <div class="modal-context">
+          <p>This is the text</p>
+        </div>
+        <div class="modal-footer">
+          <h2>This is a footer</h2>
+        </div>
+      </div>
+    </div>
+
+    <script type="text/javascript">
+      var modal = document.getElementsByClassName("modal")[0];
+
+      function openModal(){
+        modal.style.display = "flex";
+        event.stopPropagation(); // Here needs to cancel bubbling to let window click listener work
+      }
+
+      function closeModal(){
+        modal.style.display = "none";
+        event.stopPropagation();
+      }
+
+      window.onclick = closeModal;
+    </script>
+  </body>
+</html>
+```
