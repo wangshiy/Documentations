@@ -521,3 +521,96 @@ modal have a grey background div and wrapper a modal content inside
 </body>
 </html>
 ```
+#### 11. Sort a table ?
+DOM -> Array -> Sort -> Delete and Rerender
+```javascript
+<!doctype html>
+<html>
+  <head>
+    <style type="text/css">
+      table{
+        width: 100%;
+        border: 1px solid black;
+        border-collapse: collapse; /* this is the seperator between columns */
+      }
+      th,td{
+        padding: 4px;
+        text-align: left;
+        border-left: 1px solid black; /* this is the seperator between columns */
+      }
+      th{
+        cursor:pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <table id="table-container">
+      <tr>
+        <th onclick="sortEntry(0,'name')">Name</th>
+        <th onclick="sortEntry(1, 'age')">Age</th>
+      </tr>
+      <tr>
+        <td>Jim</td>
+        <td>18</td>
+      </tr>
+      <tr>
+        <td>Alex</td>
+        <td>100</td>
+      </tr>
+      <tr>
+        <td>Dan</td>
+        <td>9</td>
+      </tr>
+    </table>
+
+    <script type="text/javascript">
+      var table = document.getElementById("table-container");
+      var domTr = document.getElementsByTagName("tr");
+      var tr = Array.prototype.slice.call(domTr,null);
+      tr.shift();
+      var n;
+      var nameCounter = 0;
+      var ageCounter = 0;
+
+      function sortEntry(idx,src){
+        n = idx;
+        if(src === "name"){
+          nameCounter++;
+          tr.sort(strSortingHelper);
+        }else if(src === "age"){
+          ageCounter++;
+          tr.sort(numSortingHelper);
+        }
+        renderHelper(tr);
+      }
+
+      function strSortingHelper(a,b){
+        if (nameCounter % 2 === 1) {
+          return a.children[n].innerHTML.toLowerCase() < b.children[n].innerHTML.toLowerCase() ? -1 : 1;
+        }else{
+          return a.children[n].innerHTML.toLowerCase() > b.children[n].innerHTML.toLowerCase() ? -1 : 1;
+        }
+      }
+
+      function numSortingHelper(a,b){
+        if (ageCounter % 2 === 1) {
+          return parseInt(a.children[n].innerHTML.toLowerCase()) < parseInt(b.children[n].innerHTML.toLowerCase()) ? -1 : 1;
+        }else{
+          return parseInt(a.children[n].innerHTML.toLowerCase()) > parseInt(b.children[n].innerHTML.toLowerCase()) ? -1 : 1;
+        }
+      }
+
+      function renderHelper(ary){
+        //clean
+        for(var i = domTr.length - 1; i >= 1; i--){//should loop backward because array in reindexing after removing
+          domTr[i].remove();
+        }
+        //create
+        for(var j = 0; j < tr.length; j++){
+          table.appendChild(tr[j]);
+        }
+      }
+    </script>
+  </body>
+</html>
+```
