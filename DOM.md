@@ -614,3 +614,15 @@ DOM -> Array -> Sort -> Delete and Rerender
   </body>
 </html>
 ```
+#### 12. How to use JS to simulate `document.ready` function ?
+```javascript
+var callback = function(){
+  // Handler when the DOM is fully loaded
+};
+
+if (document.readyState === "complete" || (document.readyState !== "loading" && !document.documentElement.doScroll)) {
+  callback();
+} else {
+  document.addEventListener("DOMContentLoaded", callback);
+}
+```
