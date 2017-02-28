@@ -80,34 +80,33 @@ function TreeNode(val) {
 
 var inorderTraversalIterator = function() { 
     var stack = [];
-		
-		function pushLeftChild(node){
-		    while(node !== null){
-				  stack.push(node);
-					node = node.left;
-				}
-		}
-		
-		function hasNext(){
-		    return stack.length > 0 ? true : false;
-		}
-		
-		function next(){
-		    if(hasNext() === false){
-				    throw "all nodes visited"
-				}else{
-				    var temp = stack.pop();
-						pushLeftChild(temp.right);
-            //console.log(stack);
-						return temp.val;
-				}
-		}
+                
+    function pushLeftChild(node){
+        while(node !== null){
+            stack.push(node);
+            node = node.left;
+        }
+    }
+                
+    function hasNext(){
+        return stack.length > 0 ? true : false;
+    }
+                
+    function next(){
+        if(hasNext() === false){
+            throw "all nodes visited"
+        }else{
+            var temp = stack.pop();
+            pushLeftChild(temp.right);
+            return temp.val;
+        }
+    }
     
     return {
-		    init: pushLeftChild,
-				hasNext: hasNext,
-				next: next
-		};
+        init: pushLeftChild,
+        hasNext: hasNext,
+        next: next
+    };
 };
 
 var nodeRoot = new TreeNode(1);

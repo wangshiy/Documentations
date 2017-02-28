@@ -1019,3 +1019,50 @@ el.textContent = "foo"
 el.childNodes.length === 1; // TextNode is a node child
 el.children.length === 0; // no Element children
 ```
+#### 38. How to optimize String repeat method ?
+```javascript
+      function repeatStr(str,n){
+        var result = "";
+        for(var i = 0; i < n; i++){
+          result += str;
+        }
+        return result;
+      }
+
+      function repeatStrOpt(str,n){
+        var result = str;
+        var times = n;
+        var modulusStr = str;
+        var modulusTimes = 0;
+        var modulusStrResult = "";
+
+        while(parseInt(times / 2) !== 1){
+          modulusTimes = times % 2;
+          if(modulusTimes === 1){ // modulusStr will be the previous result str
+            modulusStr = result;
+            modulusStrResult += modulusStr;
+          }
+          times = parseInt(times / 2);
+          result += result;
+        }
+
+        //handle the last case i.e. end up with 2 or 3
+        if(times % 2 === 0){
+          result += result + modulusStrResult;
+        }else{
+          result += result + result + modulusStrResult;
+        }
+
+        return result;
+      }
+
+      var p1 = performance.now();
+      console.log(repeatStr("a",13));
+      var p2 = performance.now();
+      console.log(p2 - p1);
+
+      var p3 = performance.now();
+      console.log(repeatStrOpt("a",13));
+      var p4 = performance.now();
+      console.log(p4 - p3);
+```
