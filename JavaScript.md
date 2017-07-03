@@ -116,7 +116,7 @@ console.log(isTwoPassed(1,3,4)); // false
 ```
 #### 8. JavaScript pass by value or reference ?
 Primitives are passed by value, Objects are passed by reference.
-```html`
+```html
 <!doctype html>
 <html>
   <head>

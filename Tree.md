@@ -1,4 +1,4 @@
-# JavaScript
+# Tree
 #### 1. [Leetcode#94] Binary Tree Inorder Traversal ? 
 Recursive: needs a closure helper function to recursively modify the outer result array
 ``` JavaScript
