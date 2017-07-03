@@ -1,12 +1,12 @@
 # Dynamic Programming
 #### 1. [Leetcode#300](https://leetcode.com/problems/longest-increasing-subsequence/#/description) Longest Increasing Subsequence ?
-A[i]: Input array index = i element
-L[i]: Using A[i] as the last element, then the LIS length
-State transition function:
+- A[i]: Input array index = i element
+- L[i]: Using A[i] as the last element, then the LIS length
+- State transition function:
 1. Init L[i] = 1
 2. Next element A[i] should be greater than all previous A[j](j from 0 to i), then L[i] = max(L[j]) + 1
-Result: maximum of L
-Time: O(n^2)
+- Result: maximum of L
+- Time: O(n^2)
 ```javascript
 /**
  * @param {number[]} nums
