@@ -271,3 +271,60 @@ var lowestCommonAncestor = function(root, p, q) {
     return l !== null ? l : r;
 };
 ```
+#### 6. [Leetcode#515](https://leetcode.com/problems/find-largest-value-in-each-tree-row/#/description) Find Largest Value in Each Tree Row ?
+- BFS
+- Need to maintain `curRowElemCount` and `nextRowElemCount` in order to know when is the end of traversing currrent row
+```javascript
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+
+// queue: TreeNode[];
+// curRowElemCount: number;
+// nextRowElemCount: number;
+// rowMaxElem: number;
+// result : number[];
+var largestValues = function(root) {
+    let result = [],
+        queue = [],
+        curRowElemCount = 0,
+        nextRowElemCount = 0,
+        rowMaxElem = Number.MIN_SAFE_INTEGER;
+    
+    if (root === null) {
+        return result;
+    }
+    
+    queue.push(root);
+    curRowElemCount = 1;
+    while (queue.length > 0) {
+        let curNode = queue.shift();
+        curRowElemCount--;
+        rowMaxElem = Math.max(rowMaxElem, curNode.val);
+        if (curNode.left !== null) {
+            queue.push(curNode.left);
+            nextRowElemCount++;
+        }
+        if (curNode.right !== null) {
+            queue.push(curNode.right);
+            nextRowElemCount++;
+        }   
+        if (curRowElemCount === 0) {
+            result.push(rowMaxElem);
+            rowMaxElem = Number.MIN_SAFE_INTEGER;
+            curRowElemCount = nextRowElemCount;
+            nextRowElemCount = 0;
+        }
+    }
+    
+    return result;
+};
+```
