@@ -328,3 +328,79 @@ var largestValues = function(root) {
     return result;
 };
 ```
+#### 7. [Leetcode#98](https://leetcode.com/problems/validate-binary-search-tree/description/) Validate Binary Search Tree ?
+- Recursive: maintain min and max boundary
+```javascript
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {boolean}
+ */
+var isValidBST = function(root) {
+    return isValidBSTHelper(root, Number.MIN_SAFE_INTEGER, Number.MAX_SAFE_INTEGER);
+};
+
+function isValidBSTHelper(root, min, max) {
+    if (root === null) {
+        return true;
+    }
+    
+    if (root.val <= min || root.val >= max) {
+        return false;
+    }
+    
+    return isValidBSTHelper(root.left, min, root.val) && isValidBSTHelper(root.right, root.val, max);
+}
+```
+- Iterative: have another data structure to maintain the boundaries with node
+```javascript
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {boolean}
+ */
+function BNode(n, left, right) {
+    this.n = n;
+    this.left = left;
+    this.right = right;
+}
+
+var isValidBST = function(root) {
+    if (root === null) {
+        return true;
+    }
+    
+    var queue = [];
+    queue.push(new BNode(root, Number.MIN_SAFE_INTEGER, Number.MAX_SAFE_INTEGER));
+    
+    while (queue.length > 0) {
+        var node = queue.shift();
+        
+        if (node.n.val <= node.left || node.n.val >= node.right) {
+            return false;
+        }
+        
+        if (node.n.left !== null) {
+            queue.push(new BNode(node.n.left, node.left, node.n.val));
+        }
+        
+        if (node.n.right !== null) {
+            queue.push(new BNode(node.n.right, node.n.val, node.right));
+        }
+    }
+    
+    return true;
+};
+```
