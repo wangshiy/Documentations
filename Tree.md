@@ -404,3 +404,86 @@ var isValidBST = function(root) {
     return true;
 };
 ```
+#### 8. [Leetcode#101](https://leetcode.com/problems/symmetric-tree/description/) Symmetric Tree ?
+- Recursive: left.left === right.right && left.right && right.left
+```javascript
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {boolean}
+ */
+var isSymmetric = function(root) {
+    if (root === null) {
+        return true;
+    }
+    return isSymmetricHelper(root.left, root.right);
+};
+
+function isSymmetricHelper(left, right) {
+    if (left === null || right === null) {
+        return left === right;
+    }
+    
+    if (left.val !== right.val) {
+        return false;
+    }
+    
+    return isSymmetricHelper(left.left, right.right) && isSymmetricHelper(left.right, right.left);
+}
+```
+- Iterative: 2 queues BFS from different order
+```javascript
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {boolean}
+ */
+var isSymmetric = function(root) {
+    if (root === null) {
+        return true;
+    }
+    
+    var q1 = [];
+    var q2 = [];
+    q1.push(root);
+    q2.push(root);
+    
+    while (q1.length > 0 && q2.length > 0){
+        var n1 = q1.shift();
+        var n2 = q2.shift();
+        
+        if (n1 === null && n2 === null) {
+            continue;
+        } else if (n1 !== null && n2 !== null) {
+            if (n1.val !== n2.val) {
+                return false;
+            }
+        } else {
+            return false;
+        }
+        
+        q1.push(n1.left);
+        q1.push(n1.right);
+        q2.push(n2.right);
+        q2.push(n2.left);
+    }
+    
+    if(q1.length > 0 || q2.length > 0) {
+        return false;
+    }else{
+        return true;
+    }
+};
+```
