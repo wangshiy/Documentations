@@ -1066,3 +1066,27 @@ el.children.length === 0; // no Element children
       var p4 = performance.now();
       console.log(p4 - p3);
 ```
+#### 39. How to flatten nested object ?
+```javascript
+var flattenObject = function(ob) {
+  var toReturn = {};
+  
+  for (var i in ob) {
+    // if (!ob.hasOwnProperty(i)) continue; // [optional code] check if object has its own property i.e. not inherited
+    
+    if ((typeof ob[i]) == 'object') {
+      var flatObject = flattenObject(ob[i]);
+      for (var x in flatObject) {
+        // if (!flatObject.hasOwnProperty(x)) continue; // [optional code] check if object has its own property i.e. not inherited
+        
+        toReturn[i + '.' + x] = flatObject[x];
+      }
+    } else {
+      toReturn[i] = ob[i];
+    }
+  }
+  return toReturn;
+};
+
+console.log(flattenObject(myObject));
+```
