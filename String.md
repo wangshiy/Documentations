@@ -1,5 +1,5 @@
 # String
-#### 1. Longest Common Prefix ?
+#### 1. [Leetcode#14](https://leetcode.com/problems/longest-common-prefix/description/) Longest Common Prefix ?
 Vertical scan every char of each string in the array
 ``` JavaScript
 /**
@@ -23,5 +23,27 @@ var longestCommonPrefix = function(strs) {
     }
     
     return prefix;
+};
+```
+#### 2. [Leetcode#28](https://leetcode.com/problems/implement-strstr/description/) Implement strStr() ?
+- Two nested for loops
+```javascript
+/**
+ * @param {string} haystack
+ * @param {string} needle
+ * @return {number}
+ */
+var strStr = function(haystack, needle) {
+    for(var i = 0; i <= haystack.length - needle.length; i++){
+        for(var j = 0; j < needle.length; j++){
+            if(haystack[i+j] !== needle[j]){
+                break;
+            }
+        }
+        if(j === needle.length){
+            return i;
+        }
+    }
+    return -1;
 };
 ```
