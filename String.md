@@ -96,3 +96,44 @@ function reverse(str, i, j) {
     }
 }
 ```
+
+#### 5. [Leetcode#8](https://leetcode.com/problems/string-to-integer-atoi/description/) String to Integer (atoi) ?
+- Trim space;Consider +/-;Consider out of boundary
+```javascript
+/**
+ * @param {string} str
+ * @return {number}
+ */
+var myAtoi = function(str) {
+    var i = 0,
+        result = 0,
+        sign = 1;
+    str = str.trim();
+    
+    if (str[0] === "-") {
+        sign = -1;
+        i++;
+    } else if (str[0] === "+") {
+        i++;
+    }
+    
+    while (i < str.length) {
+        if (str[i] === " " || isNaN(str[i])){ // " " is a number in isNaN()
+            break;
+        }
+        result = result * 10 + (str[i] - 0);
+        i++;
+    }
+    
+    result = sign * result;
+    
+    if(result > Math.pow(2, 31) - 1) {
+        return Math.pow(2, 31) - 1;
+    } else if (result < -1 * Math.pow(2, 31)) {
+        return -1 * Math.pow(2, 31);
+    } else {
+        return result;
+    }
+    
+};
+```
