@@ -47,3 +47,52 @@ var strStr = function(haystack, needle) {
     return -1;
 };
 ```
+
+#### 3. [Leetcode#151](https://leetcode.com/problems/reverse-words-in-a-string/description/) Reverse Words in a String ?
+- Trim leading, traling and between spaces
+```javascript
+/**
+ * @param {string} str
+ * @returns {string}
+ */
+var reverseWords = function(str) {
+    var strArray = str.split(" ").filter(function(e) {
+        return e !== "" && e !== " ";
+    });
+    return strArray.reverse().join(" ");
+};
+```
+
+#### 4. [Leetcode#557](https://leetcode.com/problems/reverse-words-in-a-string-iii/description/) Reverse Words in a String III ?
+- Based on single space condition, reverse each word between i,j index
+```javascript
+/**
+ * @param {string} s
+ * @return {string}
+ */
+var reverseWords = function(s) {
+    var i = 0,
+        result = s.split("");
+    for (var j = 0; j < s.length; j++) {
+        if (s[j] === " ") {
+            reverse(result, i, j-1);
+            i = j + 1;
+        }
+    }
+
+    reverse(result, i, j);
+
+    return result.join("");
+};
+
+function reverse(str, i, j) {
+    var temp;
+    while (i < j) {
+        temp = str[i];
+        str[i] = str[j];
+        str[j] = temp;
+        i++;
+        j--;
+    }
+}
+```
