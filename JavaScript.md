@@ -1090,3 +1090,7 @@ var flattenObject = function(ob) {
 
 console.log(flattenObject(myObject));
 ```
+#### 40. How to init 2D array ?
+```javascript
+var myarray = [...Array(6).keys()].map(i => Array(6));
+```

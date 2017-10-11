@@ -519,3 +519,72 @@ var lowestCommonAncestor = function(root, p, q) {
     }
 };
 ```
+#### 10. [Leetcode#112](https://leetcode.com/problems/path-sum/description/) Path Sum ?
+- Recursive: continuously update target sum to dive down
+```javascript
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @param {number} sum
+ * @return {boolean}
+ */
+var hasPathSum = function(root, sum) {
+    if (root === null) {
+        return false;
+    }
+    
+    if (root.left === null && root.right === null) {
+        return root.val === sum;
+    }
+    
+    return hasPathSum(root.left, sum-root.val) || hasPathSum(root.right, sum-root.val);
+};
+```
+- Iterative: dfs with a pathSum stack to help backtracking
+```javascript
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @param {number} sum
+ * @return {boolean}
+ */
+var hasPathSum = function(root, sum) {
+    if (root === null) {
+      return false;
+    }
+
+    var stack = [];
+    var sumStack = [];
+    stack.push(root);
+    sumStack.push(root.val);
+
+    while (stack.length > 0) {
+      var node = stack.pop();
+      var pathSum = sumStack.pop();
+      if (node.right === null && node.left === null && pathSum === sum) {
+        return true;
+      }
+      if (node.right !== null) {
+        stack.push(node.right);
+        sumStack.push(pathSum + node.right.val);
+      }
+      if (node.left !== null) {
+        stack.push(node.left);
+        sumStack.push(pathSum + node.left.val);
+      }
+    }
+    return false;
+};
+```
