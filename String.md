@@ -137,3 +137,32 @@ var myAtoi = function(str) {
     
 };
 ```
+
+#### 6. [Leetcode#71](https://leetcode.com/problems/simplify-path/description/) Simplify Path ?
+- Push valid path to stack and then construct
+```javascript
+/**
+ * @param {string} path
+ * @return {string}
+ */
+var simplifyPath = function(path) {
+    var stack = [];
+    var set = new Set(['.','..','']);
+    var paths = path.split('/');
+    var result = '';
+    for (var i = 0; i < paths.length; i++) {
+        var p = paths[i];
+        if (p === '..' && stack.length > 0) {
+            stack.pop();
+        } else if (!set.has(p)) {
+            stack.push(p);
+        }
+    }
+    
+    for (var i = stack.length-1; i >= 0; i--) {
+        result = '/' + stack[i] + result;
+    }
+    
+    return result === '' ? '/' : result;
+};
+```
