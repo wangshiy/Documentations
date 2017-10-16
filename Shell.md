@@ -1,4 +1,11 @@
 - Get the last matching from the file: `grep "####" Tree.md | tail -1`
+- Copy file from windows to linux(https://community.nxp.com/thread/220596):
+``` javascript
+1. install Putty
+2. open cmd in windows
+set PATH=C:\Program Files\PuTTY 
+pscp D:\data.js username@10.0.0.4
+```
 
 #### 1. [#1](null) Convert column data to json ?
 - `read -r line`
