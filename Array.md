@@ -67,3 +67,46 @@ var lengthOfLIS = function(nums) {
     return result.length;
 };
 ```
+#### 3. [Leetcode#56](https://leetcode.com/problems/merge-intervals/description/) Merge Intervals ?
+- The idea is to sort the intervals by their starting points. Then, we take the first interval and compare its end with the next intervals starts. As long as they overlap, we update the end to be the max end of the overlapping intervals. Once we find a non overlapping interval, we can add the previous "extended" interval and start over.
+- Sorting takes O(n log(n)) and merging the intervals takes O(n). So, the resulting algorithm takes O(n log(n)).
+```javascript
+/**
+ * Definition for an interval.
+ * function Interval(start, end) {
+ *     this.start = start;
+ *     this.end = end;
+ * }
+ */
+/**
+ * @param {Interval[]} intervals
+ * @return {Interval[]}
+ */
+var merge = function(intervals) {
+    if (intervals.length === 0) {
+        return [];    
+    }
+    
+    intervals.sort(sortHelper);
+    var start = intervals[0].start;
+    var end = intervals[0].end;
+    var result = [];
+    
+    intervals.forEach(function(e){
+        if (e.start <= end) {
+            end = Math.max(e.end, end);
+        } else {
+            result.push(new Interval(start, end));
+            start = e.start;
+            end = e.end;
+        }
+    });
+    result.push(new Interval(start, end));
+    
+    return result;
+};
+
+function sortHelper(a, b) {
+    return a.start - b.start;
+}
+```
