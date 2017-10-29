@@ -1094,3 +1094,26 @@ console.log(flattenObject(myObject));
 ```javascript
 var myarray = [...Array(6).keys()].map(i => Array(6));
 ```
+#### 41. Blacklist and whitelist ?
+```javascript
+let test2 = ['a','b','c'];
+console.log(test2.indexOf('a') !== -1); // blacklist
+console.log(test2.indexOf('d') !== -1); // whitelist
+```
+#### 42. Remove duplicate by inner property ?
+```javascript
+let test1 = [{
+  name: 'a'
+}, {
+  name: 'a'
+}, {
+  name: 'b'
+}];
+
+
+function rmDupByInnerProp(array, prop) {
+  return array.filter((elem,idx,ary) => {
+    return ary.map(mapObj => mapObj[prop]).indexOf(elem[prop]) === idx;
+  })
+}
+```

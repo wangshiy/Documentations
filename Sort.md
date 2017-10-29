@@ -29,3 +29,196 @@ function swap(input: Array<Number>, idx1: Number, idx2: Number): void {
 let a = [6,5,4,3,2,7];
 document.write(bubbleSort(a));
 ```
+#### 2. Priority Queue(https://www.hackerearth.com/practice/notes/heaps-and-priority-queues/)?
+```javascript
+class MaxPQ {
+  
+  constructor() {
+    this.array = [];
+  }
+  
+  swap(a, b) {
+    const temp = this.array[a];
+    this.array[a] = this.array[b];
+    this.array[b] = temp;
+  }
+  
+  maxHeapify(i, l) {
+    const left = 2*i+1;
+    const right = 2*i+2;
+    let largest = i;
+    
+    if (left <= l && this.array[left] > this.array[i]) {
+      largest = left;
+    }
+    if (right <= l && this.array[right] > this.array[largest]) {
+      largest = right;
+    }
+    
+    if (largest !== i) {
+      this.swap(i, largest);
+      this.maxHeapify(largest, l);
+    }
+    
+  }
+
+  isEmpty() {
+    return this.array.length > 0 ? false : true;
+  }
+  
+  peek() {
+    if(this.array.length > 0) {
+      return this.array[0];
+    } else {
+      return null;
+    }
+  }
+  
+  deq() {
+    if(this.array.length > 0) {
+      const max = this.array[0];
+      this.array[0] = this.array[this.array.length-1];
+      this.array.pop();
+      this.maxHeapify(0, this.array.length-1);
+      return max;
+    } else {
+      return null;
+    }
+  }
+  
+  increaseTo(i,v) {
+    this.array[i] = v;
+    while (i > 0 && this.array[Math.floor((i-1)/2)] < this.array[i]) {
+      this.swap(Math.floor((i-1)/2), i);
+      i = Math.floor((i-1)/2);
+    }
+  }
+  
+  enq(v) {
+    this.array.push(Number.MIN_SAFE_INTEGER);
+    this.increaseTo(this.array.length-1, v);
+  }
+}
+
+const pq = new MaxPQ();
+pq.enq(7);
+pq.enq(2);
+console.log(pq.peek());
+pq.increaseTo(1,9);
+console.log(pq.peek());
+pq.enq(5);
+pq.enq(11);
+pq.enq(1);
+for (let i = 0; i < 7; i++) {
+  console.log(pq.deq());
+}
+```
+#### 3. [Leetcode#23](https://leetcode.com/problems/merge-k-sorted-lists/description/) Merge k Sorted Lists ?
+- Priority queue
+```javascript
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+/**
+ * @param {ListNode[]} lists
+ * @return {ListNode}
+ */
+var mergeKLists = function(lists) {
+    if (lists === null || lists.length === 0) {
+        return null;
+    }
+    
+    const pq = new MinPQ();
+    for (let i = 0; i < lists.length; i++) {
+        if (lists[i] !== null) {
+            pq.insert(lists[i]);
+        }
+    }
+    
+    const dummy = new ListNode(-1);
+    let cur = dummy;
+    while (!pq.isEmpty()) {
+        const temp = pq.pop();
+        cur.next = temp;
+        cur = temp;
+        if (temp.next !== null) {
+            pq.insert(temp.next);
+        }
+    }
+    
+    return dummy.next;
+};
+
+class MinPQ {
+  
+  constructor() {
+    this.array = [];
+  }
+    
+  isEmpty() {
+    return this.array.length > 0 ? false : true;
+  }
+  
+  swap(a, b) {
+    const temp = this.array[a];
+    this.array[a] = this.array[b];
+    this.array[b] = temp;
+  }
+  
+  minHeapify(i, l) {
+    const left = 2*i+1;
+    const right = 2*i+2;
+    let largest = i;
+    
+    if (left <= l && this.array[left].val < this.array[i].val) {
+      largest = left;
+    }
+    if (right <= l && this.array[right].val < this.array[largest].val) {
+      largest = right;
+    }
+    
+    if (largest !== i) {
+      this.swap(i, largest);
+      this.minHeapify(largest, l);
+    }
+    
+  }
+  
+  peek() {
+    if(this.array.length > 0) {
+      return this.array[0];
+    } else {
+      return null;
+    }
+  }
+  
+  pop() {
+    if(this.array.length > 0) {
+      const min = this.array[0];
+      this.array[0] = this.array[this.array.length-1];
+      this.array.pop();
+      this.minHeapify(0, this.array.length-1);
+      return min;
+    } else {
+      return null;
+    }
+  }
+  
+  increaseTo(i,v) {
+    this.array[i] = v;
+    while (i > 0 && this.array[Math.floor((i-1)/2)].val > this.array[i].val) {
+      this.swap(Math.floor((i-1)/2), i);
+      i = Math.floor((i-1)/2);
+    }
+  }
+  
+  insert(v) {
+    this.array.push(null);
+    this.increaseTo(this.array.length-1, v);
+  }
+}
+```
