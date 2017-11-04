@@ -1074,7 +1074,7 @@ var flattenObject = function(ob) {
   for (var i in ob) {
     // if (!ob.hasOwnProperty(i)) continue; // [optional code] check if object has its own property i.e. not inherited
     
-    if ((typeof ob[i]) == 'object') {
+    if (ob[i] && (typeof ob[i]) == 'object') {
       var flatObject = flattenObject(ob[i]);
       for (var x in flatObject) {
         // if (!flatObject.hasOwnProperty(x)) continue; // [optional code] check if object has its own property i.e. not inherited

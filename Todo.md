@@ -143,3 +143,8 @@ export class AutoLogoutService {
 }
 3. angular-jwt
 http://jasonwatmore.com/post/2016/08/16/angular-2-jwt-authentication-example-tutorial
+4.. swagger
+5.http://jsbin.com/zojuya/2/edit?js,console
+forkJoin can guarantee order
+6. https://stackoverflow.com/questions/11301438/return-index-of-greatest-value-in-an-array
+var i = arr.indexOf(Math.max(...arr));
