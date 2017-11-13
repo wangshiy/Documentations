@@ -1117,3 +1117,68 @@ function rmDupByInnerProp(array, prop) {
   })
 }
 ```
+#### 43. How to make an horizontal scroll bar ?
+```javascript
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .visible-window {
+      display: flex;
+      width: 100px;
+      overflow: hidden;
+    }
+
+    .item-container {
+      display: flex;
+      list-style: none;
+    }
+
+    .item-main {
+      border-right: 1px solid black;
+    }
+
+    .item {
+      min-width: 50px;
+      max-width: 50px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      text-align: center;
+    }
+
+    .item-shift-left {
+      margin-left: 0px;
+    }
+  </style>
+</head>
+<body>
+  <ul class="item-container">
+    <li class="item item-main" title="all">all</li>
+    <button onclick="moveLeft()"><</button>
+    <div class="visible-window">
+      <li class="item item-shift-left" title="aag">aaabffffffff</li>
+      <li class="item" title="aag">aaabffffffff</li>
+      <li class="item" title="aag">aaabffffffff</li>
+      <li class="item" title="aag">aaabffffffff</li>
+      <li class="item" title="aag">aaabffffffff</li>
+    </div>
+    <button onclick="moveRight()">></button> 
+  </ul>
+  
+  <script>
+    var itemShiftLeft = document.getElementsByClassName('item-shift-left')[0];
+    var marginLeft = 0;
+    function moveLeft() {
+      marginLeft -= 20;
+      itemShiftLeft.style.marginLeft = marginLeft + 'px';
+      console.log(itemShiftLeft.style.marginLeft);
+    }
+    function moveRight() {
+      marginLeft += 20;
+      itemShiftLeft.style.marginLeft = marginLeft + 'px';
+      console.log(itemShiftLeft.style.marginLeft);
+    }
+  </script>
+</body>
+</html>
+```
