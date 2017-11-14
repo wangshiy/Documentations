@@ -58,3 +58,70 @@ var maxSubArray = function(nums) {
     return max;
 };
 ```
+
+#### 3. [Leetcode#96](https://leetcode.com/problems/unique-binary-search-trees/description/) Unique Binary Search Trees ?
+- G(n) = G(0) * G(n-1) + G(1) * G(n-2) + … + G(n-1) * G(0) 
+```javascript
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var numTrees = function(n) {
+    const G = new Array(n+1);
+    G.fill(0);
+    G[0] = G[1] = 1;
+    
+    for (let i = 2; i <=n ; i++) {
+        for (let j = 1; j <= i; j++) {
+            G[i] += G[j - 1] * G[i - j];
+        }
+    }
+    
+    return G[n];
+};
+```
+
+#### 4. [Leetcode#95](https://leetcode.com/problems/unique-binary-search-trees-ii/description/) Unique Binary Search Trees II ?
+- Divide and conquer
+```javascript
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {number} n
+ * @return {TreeNode[]}
+ */
+var generateTrees = function(n) {
+    if (n === 0) {
+        return [];
+    }
+    return generateSubtrees(1, n);
+};
+
+function generateSubtrees(s, e) {
+    var result = [];
+    if (s > e) {
+        result.push(null);
+        return result;
+    }
+    
+    for (var i = s; i <=e; i++) {
+        var leftSubtree = generateSubtrees(s, i - 1);
+        var rightSubtree = generateSubtrees(i + 1, e);
+        leftSubtree.forEach((l) => {
+            rightSubtree.forEach((r) => {
+                root = new TreeNode(i);
+                root.left = l;
+                root.right = r;
+                result.push(root);
+            });
+        })
+    }
+    
+    return result;
+}
+```
