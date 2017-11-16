@@ -639,3 +639,45 @@ BSTIterator.prototype.next = function() {
  * while (i.hasNext()) a.push(i.next());
 */
 ```
+
+#### 12. [Leetcode#687](https://leetcode.com/problems/longest-univalue-path/description/) Longest Univalue Path ?
+- Recursion ask children's left and right path length and update the global maxLength in the meanwhile
+```javascript
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var longestUnivaluePath = function(root) {
+    var maxLength = 0;
+    arrowLength(root);
+    return maxLength;
+    
+    function arrowLength(root) {
+        if (root === null) {
+            return 0;
+        }
+        var left = arrowLength(root.left);
+        var right = arrowLength(root.right);
+
+        var arrowLeft = 0;
+        var arrowRight = 0;
+        if (root.left !== null && root.left.val === root.val) {
+            arrowLeft = left + 1;
+        }
+        if (root.right !== null && root.right.val === root.val) {
+            arrowRight = right + 1;
+        }
+
+        maxLength = Math.max(maxLength, arrowLeft + arrowRight);
+
+        return Math.max(arrowLeft, arrowRight);
+    }
+};
+```
