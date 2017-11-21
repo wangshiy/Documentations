@@ -125,3 +125,27 @@ function generateSubtrees(s, e) {
     return result;
 }
 ```
+
+#### 5. [Leetcode#139](https://leetcode.com/problems/word-break/description/) Word Break ?
+- dp[i] means s[0:i-1] is breakable
+- dp[i] = true if and only if `dp[k] === true` && dict.contains(s[k:i-1])
+```javascript
+/**
+ * @param {string} s
+ * @param {string[]} wordDict
+ * @return {boolean}
+ */
+var wordBreak = function(s, wordDict) {
+    var dp = new Array(s.length + 1).fill(false);
+    dp[0] = true;
+    for (var i = 0; i < s.length; i++) {
+        for (var j = i; j >=0; j--) {
+            if (dp[j] && wordDict.includes(s.substr(j, i - j + 1))) {
+                dp[i + 1] = true;
+                break;
+            }
+        }
+    }
+    return dp[s.length];
+};
+```
