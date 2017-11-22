@@ -139,7 +139,7 @@ var wordBreak = function(s, wordDict) {
     var dp = new Array(s.length + 1).fill(false);
     dp[0] = true;
     for (var i = 0; i < s.length; i++) {
-        for (var j = i; j >=0; j--) {
+        for (var j = 0; j <= i; j++) {
             if (dp[j] && wordDict.includes(s.substr(j, i - j + 1))) {
                 dp[i + 1] = true;
                 break;
