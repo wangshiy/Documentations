@@ -149,3 +149,51 @@ var wordBreak = function(s, wordDict) {
     return dp[s.length];
 };
 ```
+
+#### 6. [Leetcode#140](https://leetcode.com/problems/word-break-ii/description/) Word Break II ?
+- dp(s, result) means all result array for string s
+- outer for loop break the string into two parts, when right part is in dict then recursive call left part to find all results, then append right part to result
+```javascript
+/**
+ * @param {string} s
+ * @param {string[]} wordDict
+ * @return {string[]}
+ */
+var wordBreak = function(s, wordDict) {
+    const dp = new Map();
+    return breakHelper(s, wordDict);
+    
+    function breakHelper(s, wordDict) {
+        if (dp.has(s)) {
+            return dp.get(s);
+        }
+
+        let result = [];
+        if (wordDict.includes(s)) {
+            result.push(s);
+        }
+        for (let i = 1; i < s.length; i++) {
+            const right = s.substr(i);
+            if (!wordDict.includes(right)) {
+                continue;
+            }
+            const left = s.substr(0, i);
+            const leftResult = appendHelper(breakHelper(left, wordDict), right);
+            leftResult.forEach((e) => {
+                result.push(e);
+            })
+        }
+        
+        dp.set(s, result);
+        return dp.get(s);
+    }
+
+    function appendHelper(words, word) {
+        const result = [];
+        words.forEach((e) => {
+            result.push(`${e} ${word}`);
+        });
+        return result;
+    }
+};
+```
