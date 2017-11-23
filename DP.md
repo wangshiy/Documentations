@@ -149,6 +149,39 @@ var wordBreak = function(s, wordDict) {
     return dp[s.length];
 };
 ```
+- recursive version
+```javascript
+/**
+ * @param {string} s
+ * @param {string[]} wordDict
+ * @return {boolean}
+ */
+var wordBreak = function(s, wordDict) {
+    var mem = new Map();
+    return breakHelper(s, wordDict);
+    
+    function breakHelper(s, dict) {
+        if (mem.has(s)) {
+            return mem.get(s);
+        }
+        if (dict.includes(s)) {
+            mem.set(s, true);
+            return true;
+        }
+        for (let i = 1; i < s.length; i++) {
+            const left = s.substr(0, i);
+            const right = s.substr(i);
+            if (dict.includes(right) && breakHelper(left, dict)) {
+                mem.set(s, true);
+                return true;
+            }
+        }
+        
+        mem.set(s, false);
+        return false;
+    }
+};
+```
 
 #### 6. [Leetcode#140](https://leetcode.com/problems/word-break-ii/description/) Word Break II ?
 - dp(s, result) means all result array for string s
