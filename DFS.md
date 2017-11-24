@@ -1,7 +1,7 @@
 # DFS
 #### 1. [Leetcode#200](https://leetcode.com/problems/number-of-islands/description/) Number of Islands ?
 - DFS when encounter 1, make total counter++ and make all its neighbours to 0
-- Time: O(mn)
+- Time: O(mn), Space: O(mn)
 ```javascript
 /**
  * @param {character[][]} grid
@@ -31,7 +31,7 @@ function dfs(x, y, m, n, grid) {
     if (x < 0 || x >= m || y < 0 || y >= n || grid[y][x] === '0') {
         return;
     }
-    grid[y][x] = '0';
+    grid[y][x] = '0'; // prune
     dfs(x + 1, y, m, n, grid);
     dfs(x - 1, y, m, n, grid);
     dfs(x, y + 1, m, n, grid);
@@ -76,4 +76,39 @@ function buildHelper(nums, low, high) {
     
     return node;
 }
+```
+
+#### 3. [Leetcode#116](https://leetcode.com/problems/populating-next-right-pointers-in-each-node/description/) Populating Next Right Pointers in Each Node ?
+- dfs with pre-order traversal
+- Time: O(n), Space: O(n)
+```javascript
+/**
+ * Definition for binary tree with next pointer.
+ * function TreeLinkNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = this.next = null;
+ * }
+ */
+
+/**
+ * @param {TreeLinkNode} root
+ * @return {void} Do not return anything, modify tree in-place instead.
+ */
+var connect = function(root) {
+    if (!root) {
+        return;
+    }
+    
+    if (root.left) {
+        root.left.next = root.right;
+    }
+    if (root.next && root.next.left) {
+        root.right.next = root.next.left;
+    }
+    
+    connect(root.left);
+    connect(root.right);
+    
+    return;
+};
 ```
