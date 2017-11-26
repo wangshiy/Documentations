@@ -158,3 +158,50 @@ function buildHelper(preorder, inorder, pre_start, in_start, in_end) {
     return curNode;
 }
 ```
+
+#### 5. [Leetcode#301](https://leetcode.com/problems/remove-invalid-parentheses/description/) Remove Invalid Parentheses ?
+- remove the first invalid one and recursively call the function with the rest of the string
+- reverse the string and do the same to help ')' is more that '('
+- Time: O(n^2), Space: O(n^2)
+```javascript
+/**
+ * @param {string} s
+ * @return {string[]}
+ */
+var removeInvalidParentheses = function(s) {
+  const  result = [];
+  removeHelper(s, result, 0, 0, ['(', ')']);
+  return result;
+};
+
+function removeHelper(s, result, last_i, last_j, para) {
+  let stack = 0;
+  for (let i = last_i; i < s.length; i++) {
+    if (s[i] === para[0]) {
+      stack++;
+    }
+    if (s[i] === para[1]) {
+      stack--;
+    }
+    if (stack >= 0) {
+      continue;
+    }
+
+    for (let j = last_j; j <= i; j++) {
+      if (s[j] === para[1] && (j === last_j || s[j-1] !== para[1])) {
+        // console.log(`s:${s.substring(0, j) + s.substring(j+1, s.length)},result:${result},i:${i},j:${j},para:${para}`);
+        removeHelper(s.substring(0, j) + s.substring(j+1, s.length), result, i, j, para);
+      }
+    }
+
+    return;
+  }
+
+  const reversed = s.split('').reverse().join('');
+  if (para[0] === '(') {
+    removeHelper(reversed, result, 0, 0, [')','(']);
+  } else {
+    result.push(reversed);
+  }
+}
+```
