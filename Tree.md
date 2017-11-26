@@ -1,5 +1,52 @@
 # Tree
 #### 1. [Leetcode#94] Binary Tree Inorder Traversal ? 
+Morris Inorder Traversal:
+- Go to left child's most right child and 
+- `if (predecessor.right === null)` => build the predecessor `predecessor.right = current` and `current = current.left`
+- `else if (predecessor.right === current)` i.e. loop back => means the left subTree has been visited, then destruct predecessor`predecessor.right = null` and `current = current.right`
+- Time: O(n), Space: O(1)
+``` JavaScript
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+var inorderTraversal = function(root) {
+    if (root === null) {
+        return [];
+    }
+    
+    let result = [];
+    let predecessor = null;
+    while (root !== null) {
+        if (root.left !== null) {
+            predecessor = root.left;
+            while (predecessor.right !== null && predecessor.right !== root) { // go to the right most child
+                predecessor = predecessor.right;
+            }
+            if (predecessor.right === null) { // build predecessor
+                predecessor.right = root;
+                root = root.left;
+            } else { // means already visited leftSub tree, destruct predecessor and move to rightSub tree
+                predecessor.right = null;
+                result.push(root.val);
+                root = root.right;
+            }
+        } else {
+            result.push(root.val);
+            root = root.right;
+        }
+    }
+    
+    return result;
+};
+```
 Recursive: needs a closure helper function to recursively modify the outer result array
 ``` JavaScript
 /**
@@ -70,6 +117,7 @@ var inorderTraversal = function(root) {
     return result;
 };
 ```
+
 #### 2. Binary Tree Inorder Traversal Iterator? 
 Provide `next()` and `hasNext()` and use stack to maintain treenodes
 ``` JavaScript
@@ -132,7 +180,55 @@ console.log(iterator.hasNext() + " : " + iterator.next());
 console.log(iterator.hasNext() + " : " + iterator.next());
 console.log(iterator.hasNext() + " : " + iterator.next());
 ```
-#### 3. [Leetcode#102] Binary Tree Level Order Traversal ? 
+
+#### 3. [Leetcode#144] Binary Tree Preorder Traversal ? 
+Morris Inorder Traversal:
+- One line different from Inorder Traversal: when `predecessor.right === null` => print `root.val`
+- Time: O(n), Space: O(1)
+``` JavaScript
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+var preorderTraversal = function(root) {
+    if (root === null) {
+        return [];
+    }
+    
+    let result = [];
+    let predecessor = null;
+    while (root !== null) {
+        if (root.left !== null) {
+            predecessor = root.left;
+            while (predecessor.right !== null && predecessor.right !== root) { // go to the right most child
+                predecessor = predecessor.right;
+            }
+            if (predecessor.right === null) { // build predecessor
+                predecessor.right = root;
+                result.push(root.val);
+                root = root.left;
+            } else { // means already visited leftSub tree, destruct predecessor and move to rightSub tree
+                predecessor.right = null;
+                root = root.right;
+            }
+        } else {
+            result.push(root.val);
+            root = root.right;
+        }
+    }
+    
+    return result;
+};
+```
+
+#### 4. [Leetcode#102] Binary Tree Level Order Traversal ? 
 BFS, and needs two counters for curLvNodes and nextLvNodes
 ```javascript
 /**
@@ -181,7 +277,8 @@ var levelOrder = function(root) {
     return result;
 };
 ```
-#### 4. Binary Tree width ? 
+
+#### 5. Binary Tree width ? 
 Height should be init as an array to call by reference
 
 Recursion should have ablility to update its parent height so that height and width recursions are in the same function to optimize => O(n)
@@ -231,7 +328,8 @@ node4.left = node5;
 
 console.log(treeWidth(nodeRoot));
 ```
-#### 5. [Leetcode#236](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/) Binary Tree LCA ? 
+
+#### 6. [Leetcode#236](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/) Binary Tree LCA ? 
 If found node is the target, then node return itself to its parent, finally parent return left or right or itself.
 Time O(n), Space O(1)
 ``` JavaScript
@@ -271,7 +369,8 @@ var lowestCommonAncestor = function(root, p, q) {
     return l !== null ? l : r;
 };
 ```
-#### 6. [Leetcode#515](https://leetcode.com/problems/find-largest-value-in-each-tree-row/#/description) Find Largest Value in Each Tree Row ?
+
+#### 7. [Leetcode#515](https://leetcode.com/problems/find-largest-value-in-each-tree-row/#/description) Find Largest Value in Each Tree Row ?
 - BFS
 - Need to maintain `curRowElemCount` and `nextRowElemCount` in order to know when is the end of traversing currrent row
 ```javascript
@@ -328,7 +427,8 @@ var largestValues = function(root) {
     return result;
 };
 ```
-#### 7. [Leetcode#98](https://leetcode.com/problems/validate-binary-search-tree/description/) Validate Binary Search Tree ?
+
+#### 8. [Leetcode#98](https://leetcode.com/problems/validate-binary-search-tree/description/) Validate Binary Search Tree ?
 - Recursive: maintain min and max boundary
 ```javascript
 /**
@@ -404,7 +504,8 @@ var isValidBST = function(root) {
     return true;
 };
 ```
-#### 8. [Leetcode#101](https://leetcode.com/problems/symmetric-tree/description/) Symmetric Tree ?
+
+#### 9. [Leetcode#101](https://leetcode.com/problems/symmetric-tree/description/) Symmetric Tree ?
 - Recursive: left.left === right.right && left.right && right.left
 ```javascript
 /**
@@ -487,7 +588,8 @@ var isSymmetric = function(root) {
     }
 };
 ```
-#### 9. [Leetcode#235](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/description/) Lowest Common Ancestor of a Binary Search Tree ?
+
+#### 10. [Leetcode#235](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/description/) Lowest Common Ancestor of a Binary Search Tree ?
 - Utilize BST property, if root.val between p and q, then it is root, if root.val smaller than both p and q then dive to root.right, else dive to root.left
 ```javascript
 /**
@@ -519,7 +621,8 @@ var lowestCommonAncestor = function(root, p, q) {
     }
 };
 ```
-#### 10. [Leetcode#112](https://leetcode.com/problems/path-sum/description/) Path Sum ?
+
+#### 11. [Leetcode#112](https://leetcode.com/problems/path-sum/description/) Path Sum ?
 - Recursive: continuously update target sum to dive down
 ```javascript
 /**
@@ -588,7 +691,8 @@ var hasPathSum = function(root, sum) {
     return false;
 };
 ```
-#### 11. [Leetcode#173](https://leetcode.com/problems/binary-search-tree-iterator/description/) Binary Search Tree Iterator ?
+
+#### 12. [Leetcode#173](https://leetcode.com/problems/binary-search-tree-iterator/description/) Binary Search Tree Iterator ?
 - pushAll left children to stack, and process the poped node's right child
 ```javascript
 /**
@@ -640,7 +744,7 @@ BSTIterator.prototype.next = function() {
 */
 ```
 
-#### 12. [Leetcode#687](https://leetcode.com/problems/longest-univalue-path/description/) Longest Univalue Path ?
+#### 13. [Leetcode#687](https://leetcode.com/problems/longest-univalue-path/description/) Longest Univalue Path ?
 - Recursion ask children's left and right path length and update the global maxLength in the meanwhile
 ```javascript
 /**
