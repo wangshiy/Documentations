@@ -205,3 +205,44 @@ function removeHelper(s, result, last_i, last_j, para) {
   }
 }
 ```
+
+#### 6. [Leetcode#257](https://leetcode.com/problems/binary-tree-paths/description/) Binary Tree Paths ?
+- dfs with a stack to store a pair `(curNode, curStr)`
+- Time: O(n), Space: O(n)
+```javascript
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {string[]}
+ */
+var binaryTreePaths = function(root) {
+    if (root === null) {
+        return [];
+    }
+    
+    const result = [];
+    const stack = [[root,'']];
+    while (stack.length > 0) {
+        const curItem = stack.pop();
+        const curNode = curItem[0];
+        const curStr = curItem[1];
+        if (curNode.left === null && curNode.right === null) {
+            result.push(curStr + curNode.val);
+        }
+        if (curNode.left !== null) {
+            stack.push([curNode.left, curStr + curNode.val + '->']);
+        }
+        if (curNode.right !== null) {
+            stack.push([curNode.right, curStr + curNode.val + '->']);
+        }
+    }
+    
+    return result;
+};
+```
