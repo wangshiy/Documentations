@@ -246,3 +246,40 @@ var binaryTreePaths = function(root) {
     return result;
 };
 ```
+
+#### 7. [Leetcode#114](https://leetcode.com/problems/flatten-binary-tree-to-linked-list/description/) Flatten Binary Tree to Linked List ?
+- dfs with reverse operation order of preorder traversal i.e. (right -> left -> root)
+- One global variable prev to help store previous tree root
+- Time: O(n), Space: O(1)
+```javascript
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {void} Do not return anything, modify root in-place instead.
+ */
+var flatten = function(root) {
+    let prev = null;
+    flattenHelper(root);
+    return;
+    
+    function flattenHelper(root) {
+        if (root === null) {
+            return;
+        }
+        
+        flattenHelper(root.right);
+        flattenHelper(root.left);
+        root.right = prev;
+        root.left = null;
+        prev = root;
+        
+        return;
+    }
+};
+```
