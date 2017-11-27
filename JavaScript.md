@@ -115,7 +115,7 @@ console.log(isTwoPassed(1,2,3,4)); // true
 console.log(isTwoPassed(1,3,4)); // false
 ```
 #### 8. JavaScript pass by value or reference ?
-Primitives are passed by value, Objects are passed by reference.
+Passed by value, but inner properties of objects are passed by reference.
 ```html
 <!doctype html>
 <html>
@@ -142,6 +142,23 @@ Primitives are passed by value, Objects are passed by reference.
     </script>
   </body>
 </html>
+```
+```javascript
+let a = [1,2];
+let b = [null];
+let c = [4]
+b = a;
+a = c;
+b[0] = 2
+a[0] = 3
+console.log(b);
+console.log(a);
+console.log(c);
+/*
+[2, 2]
+[3]
+[3]
+*/
 ```
 #### 9. How could you use Math.max to find the max value in an array ?
 Use `apply()`
