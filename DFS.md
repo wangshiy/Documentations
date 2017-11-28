@@ -283,3 +283,24 @@ var flatten = function(root) {
     }
 };
 ```
+
+#### 8. [Leetcode#104](https://leetcode.com/problems/maximum-depth-of-binary-tree/description/) Maximum Depth of Binary Tree ?
+- dfs `1 + Max(maxDepth(root.left), maxDepth(root.right))`
+- Time: O(n), Space: O(n)
+```javascript
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var maxDepth = function(root) {
+    if (root === null) return 0;
+    return 1 + Math.max(maxDepth(root.left), maxDepth(root.right));
+};
+```
