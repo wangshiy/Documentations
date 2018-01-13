@@ -1199,3 +1199,16 @@ function rmDupByInnerProp(array, prop) {
 </body>
 </html>
 ```
+#### 44. Array vertical sum ?
+```javascript
+const a1 = [1,2,3,4];
+const a2 = [null, -1, 12, 0];
+let totalSumArray = [a1, a2];
+totalSumArray = totalSumArray.reduce((array1, array2) => {
+  return array1.map((value, index) => (
+    isNaN(value) ? 0 : value) + (isNaN(array2[index]) ? 0 : array2[index]));
+});
+
+console.log(totalSumArray);
+// [1, 1, 15, 4]
+```
