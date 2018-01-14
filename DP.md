@@ -230,3 +230,21 @@ var wordBreak = function(s, wordDict) {
     }
 };
 ```
+
+#### 7. [Leetcode#198](https://leetcode.com/problems/house-robber/description/) House Robber ?
+- rob[i] = notRob[i-1] + num[i]
+- notRob[i] = Math.max(rob[i-1], notRob[i-1]);
+```javascript
+class Solution {
+    public int rob(int[] nums) {
+        int rob = 0;
+        int notRob = 0;
+        for (int num: nums) {
+            int preValue = Math.max(rob, notRob);
+            rob = notRob + num;
+            notRob = preValue;
+        }
+        return Math.max(rob, notRob);
+    }
+}
+```
