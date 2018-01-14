@@ -248,3 +248,30 @@ class Solution {
     }
 }
 ```
+
+#### 8. [Leetcode#213](https://leetcode.com/problems/house-robber-ii/description/) House Robber II ?
+- robRowHelper() 
+- return Math.max(robRowHelper(0...n-2), robRowHelper(1...n-1));
+```javascript
+class Solution {
+    public int rob(int[] nums) {
+        int length = nums.length;
+        if (length < 2) {
+            return length == 1 ? nums[0] : 0;
+        }
+        return Math.max(this.robRowHelper(nums, 0, length - 2), this.robRowHelper(nums, 1, length - 1));
+    }
+
+    private int robRowHelper(int[] nums, int start, int end) {
+        int rob = 0;
+        int notRob = 0;
+        int prevValue = 0;
+        for (int i = start; i <= end; i++) {
+            prevValue = Math.max(rob, notRob);
+            rob = notRob + nums[i];
+            notRob = prevValue;
+        }
+        return Math.max(rob, notRob);
+    }
+}
+```
