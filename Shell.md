@@ -38,3 +38,8 @@ do
 	echo "{"$part1","$part2",count:1}" >> data2.js
 done < "$1"
 ```
+
+#### 2. [#2](https://stackoverflow.com/questions/2514172/listing-each-branch-and-its-last-revisions-date-in-git) List git branch by last modified time ?
+```javascript
+for k in `git branch | sed s/^..//`; do echo -e `git log -1 --pretty=format:"%Cgreen%ci %Cblue%cr%Creset" $k --`\\t"$k";done | sort -r
+```
