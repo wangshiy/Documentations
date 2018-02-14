@@ -1212,3 +1212,64 @@ totalSumArray = totalSumArray.reduce((array1, array2) => {
 console.log(totalSumArray);
 // [1, 1, 15, 4]
 ```
+#### 45. Difference between function and arrow function ?
+There is no `this` binding in arrow function, but function has `this` 
+```javascript
+const obj = {
+  name: 'jim',
+  a: () => { console.log(this.name, this)},
+  b: function () {
+    console.log(this.name, this);
+  }
+}
+
+obj.a();
+obj.b();
+// undefined, Window
+// jim, obj
+```
+#### 46. Difference between lexical scope and dynamic scope ?
+- Lexical scope (static scope) that is the function's scope is defined with the code analysis phase
+- Dynamic scope that is the function's scope is defined with the code execution phase
+- Javascript is using lexical scope, bash shell script is using dynamic scope
+```javascript
+var a = 2;
+
+function foo() {
+  console.log(a); // 会输出2还是3？
+}
+
+function bar() {
+  var a = 3;
+  foo();
+}
+
+bar();
+// output 2
+```
+#### 47. Difference between lexical scope and dynamic scope ?
+- 事件循环每次只会入栈一个 macrotask ，主线程执行完该任务后又会先检查 microtasks 队列并完成里面的所有任务后再执行 macrotask
+- macrotasks: setTimeout, setInterval, setImmediate, I/O, UI rendering
+- microtasks: process.nextTick, Promises, Object.observe(废弃), MutationObserver
+```javascript
+console.log('script start');
+
+setTimeout(function() {
+  console.log('setTimeout');
+}, 0);
+
+Promise.resolve().then(function() {
+  console.log('promise1');
+}).then(function() {
+  console.log('promise2');
+});
+
+console.log('script end');
+/*
+"script start"
+"script end"
+"promise1"
+"promise2"
+"setTimeout"
+*/
+```
