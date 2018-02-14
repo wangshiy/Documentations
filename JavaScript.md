@@ -1252,24 +1252,36 @@ bar();
 - macrotasks: setTimeout, setInterval, setImmediate, I/O, UI rendering
 - microtasks: process.nextTick, Promises, Object.observe(废弃), MutationObserver
 ```javascript
-console.log('script start');
-
-setTimeout(function() {
-  console.log('setTimeout');
-}, 0);
-
-Promise.resolve().then(function() {
-  console.log('promise1');
-}).then(function() {
-  console.log('promise2');
+console.log('start');
+let intervalId;
+Promise.resolve()
+  .then(() => {
+  console.log('p1');
+}).then(() => {
+  console.log('p2');
 });
 
-console.log('script end');
-/*
-"script start"
-"script end"
-"promise1"
-"promise2"
-"setTimeout"
-*/
+setTimeout(() => {
+  Promise.resolve()
+    .then(() => {
+    console.log('p3');
+  }).then(() => {
+    console.log('p4');
+  });
+  intervalId = setInterval(() => {
+    console.log('interval');
+  },3000);
+  console.log('timeout1');
+},0);
+
+setTimeout(() => {
+  console.log('timeout2');
+  Promise.resolve().then(
+    () => {
+    console.log('p5');
+    clearInterval(intervalId);
+    });
+},0)
+
+// start, p1, p2, timeout1, p3, p4, timeout2, p5
 ```
