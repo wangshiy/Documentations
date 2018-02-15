@@ -1229,7 +1229,7 @@ obj.b();
 // jim, obj
 ```
 #### 46. Difference between lexical scope and dynamic scope ?
-- Lexical scope (static scope) that is the function's scope is defined with the code analysis phase
+- Lexical scope (static scope) that is the function's scope is defined within the function or look up
 - Dynamic scope that is the function's scope is defined with the code execution phase
 - Javascript is using lexical scope, bash shell script is using dynamic scope
 ```javascript
