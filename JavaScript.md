@@ -1285,3 +1285,32 @@ setTimeout(() => {
 
 // start, p1, p2, timeout1, p3, p4, timeout2, p5
 ```
+#### 48. How to make Object iterable ?
+- Overwrite `@@iterator` method with generator function
+```javascript
+let options = {
+  male: 'John',
+  female: 'Gina',
+  rel: 'Love'
+}
+
+options[Symbol.iterator] = function *() {
+  let self = this;
+  for (const key in self) {
+    yield `${key}:${self[key]}`;
+  }
+}
+
+console.log([...options]);
+console.log('==========');
+for (const k of options) {
+  console.log(k);
+}
+/*
+["male:John", "female:Gina", "rel:Love"]
+"=========="
+"male:John"
+"female:Gina"
+"rel:Love"
+*/
+```
