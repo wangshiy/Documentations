@@ -1314,3 +1314,29 @@ for (const k of options) {
 "rel:Love"
 */
 ```
+#### 49. Use async/await to simulate pause function ?
+- `async` is the syntac sugar for `generator`, i.e. `async` is `function*`, `await` is `yield`
+```javascript
+// noprotect
+function sleep(ms) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve(`sleep ${ms} ms`);
+    }, ms);
+  });
+}
+
+async function asyncSleep() {
+  console.time('totalTime:');
+  let awt = [];
+  for (let i = 0; i < 5; i++) {
+    awt.push(sleep(i * 1000 * 0.5));
+  }
+  for (const a of awt) {
+    console.log(await a);
+  }
+  console.timeEnd('totalTime:');
+}
+
+asyncSleep();
+```
