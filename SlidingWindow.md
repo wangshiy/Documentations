@@ -27,6 +27,7 @@ int findSubstring(string s){
         return d;
   }
 ```
+
 #### 1. [Leetcode#76](https://leetcode.com/problems/minimum-window-substring/description/) Minimum Window Substring ?
 - Build Hashmap for target
 - Move end pointer to find matching window
@@ -78,6 +79,7 @@ var minWindow = function(s, t) {
   return substrLength === Number.MAX_SAFE_INTEGER ? "" : s.substr(substrStart, substrLength);
 };
 ```
+
 #### 2. [Leetcode#159](https://leetcode.com/problems/longest-substring-with-at-most-two-distinct-characters/description/) Longest Substring with At Most Two Distinct Characters ?
 - Build Hashmap for target
 - Move end pointer to find matching window
@@ -109,6 +111,42 @@ var lengthOfLongestSubstringTwoDistinct = function(s) {
         substrLength = Math.max(substrLength, end - start);
     }
 
+    return substrLength;
+};
+```
+
+#### 3. [Leetcode#3](https://leetcode.com/problems/longest-substring-without-repeating-characters/description/) Longest Substring Without Repeating Characters ?
+- Build Hashmap for target
+- Move end pointer to find matching window
+- Move start pointer to minimize window size
+``` JavaScript
+/**
+ * @param {string} s
+ * @return {number}
+ */
+
+var charCodeUtil = function(c) {
+    return c.charCodeAt(0);
+}
+
+var lengthOfLongestSubstring = function(s) {
+    let start = 0;
+    let end = 0;
+    let total = 0; // means sth is duplicated
+    let substrLength = 0;
+    let map = new Array(128).fill(0);
+    while (end < s.length) {
+        if (map[charCodeUtil(s[end++])]++ > 0) {
+            total++;
+        }
+        while (total > 0) {
+            if (map[charCodeUtil(s[start++])]-- > 1) {
+                total--;
+            }
+        }
+        substrLength = Math.max(substrLength, end - start);
+    }
+    
     return substrLength;
 };
 ```
