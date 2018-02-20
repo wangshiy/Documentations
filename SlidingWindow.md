@@ -150,3 +150,40 @@ var lengthOfLongestSubstring = function(s) {
     return substrLength;
 };
 ```
+
+#### 4. [Leetcode#340](https://leetcode.com/problems/longest-substring-with-at-most-k-distinct-characters/description/) Longest Substring with At Most K Distinct Characters ?
+- Build Hashmap for target
+- Move end pointer to find matching window
+- Move start pointer to minimize window size
+``` JavaScript
+/**
+ * @param {string} s
+ * @param {number} k
+ * @return {number}
+ */
+
+var charCodeUtil = function(s) {
+    return s.charCodeAt(0);
+}
+
+var lengthOfLongestSubstringKDistinct = function(s, k) {
+    let start = 0;
+    let end = 0;
+    let substrLength = 0;
+    let total = 0;
+    let map = new Array(128).fill(0);
+    while (end < s.length) {
+        if (map[charCodeUtil(s[end++])]++ === 0) {
+            total++;
+        }
+        while (total > k) {
+            if (map[charCodeUtil(s[start++])]-- === 1) {
+                total--;
+            }
+        }
+        substrLength = Math.max(substrLength, end - start);
+    }
+    
+    return substrLength;
+};
+```
