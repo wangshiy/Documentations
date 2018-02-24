@@ -1340,3 +1340,80 @@ async function asyncSleep() {
 
 asyncSleep();
 ```
+#### 50. The principle and methods of implementing jsonp ?
+- JSONP utilize the fact that `<script>` `src` attribute to handle cors, so it only support `get` method
+- It sends callback function to server and let server fill the data and then invoke later
+- `node server.js`
+```javascript
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <p id="resContainer"></p>
+  <p id="resContainer1"></p>
+  <button onclick="jsonpClickHandler()">getData</button>
+  <button onclick="jsonpClickHandler1()">getData</button>
+
+
+  <script type="text/javascript">
+    var resContainer = document.getElementById("resContainer");
+    var resContainer1 = document.getElementById("resContainer1");
+
+    function jsonp(req){
+      var scriptPlaceHolder = document.getElementsByTagName('head')[0].childNodes[2];
+      console.log('scriptPlaceHolder', scriptPlaceHolder);
+        var script = document.createElement('script');
+        var url = req.url + '?callback=' + req.callback.name; // req.callback.name is the function name
+        script.src = url;
+        scriptPlaceHolder.replaceWith(script);
+    }
+
+    function hello(res){
+        resContainer.innerHTML = res.data;
+    }
+
+    function hello1(res){
+        resContainer.innerHTML = res.data;
+    }
+
+    function jsonpClickHandler() {
+      jsonp({
+          url : 'http://localhost:8888',
+          callback : hello 
+      });
+    }
+
+    function jsonpClickHandler1() {
+      jsonp({
+          url : 'http://localhost:8888',
+          callback : hello1 
+      });
+    }
+  </script>
+</body>
+</html>
+```
+```javascript
+var http = require('http');
+var urllib = require('url');
+
+var port = 8888;
+var data = {'data':'response from server'};
+
+http.createServer(function(req,res){
+    var params = urllib.parse(req.url,true);
+    if(params.query.callback){
+        console.log(params.query.callback);
+        //jsonp
+        var str = params.query.callback + '(' + JSON.stringify(data) + ')';
+        res.end(str);
+    } else {
+        res.end();
+    }
+    
+}).listen(port,function(){
+    console.log('jsonp server is on');
+});
+```
