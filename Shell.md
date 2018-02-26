@@ -43,3 +43,8 @@ done < "$1"
 ```javascript
 for k in `git branch | sed s/^..//`; do echo -e `git log -1 --pretty=format:"%Cgreen%ci %Cblue%cr%Creset" $k --`\\t"$k";done | sort -r
 ```
+
+#### 3. [#3](https://www.tecmint.com/delete-all-files-in-directory-except-one-few-file-extensions/) Delete all files apart from `.gz` file ?
+```javascript
+find . -type f -not -name '*.gz'-delete
+```
