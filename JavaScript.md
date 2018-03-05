@@ -642,6 +642,44 @@ We can also use decorator design pattern as below
 </body>
 </html>
 ```
+#### 25.1 How to implement throttle function ?
+Keypoint is throttle will return a closure, inner function access outside `canExe`, when `canExe` is false then do nothing, otherwises `setTimeout` to execute
+```javascript
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+</head>
+<body onresize="throttledResize()">
+
+<script type="text/javascript">
+  function throttle(func, wait){
+    let canExe = true;
+    function wrapper(){
+      if(!canExe){
+        return;
+      }
+      canExe = false;
+      setTimeout(() => {
+        canExe = true;
+        func.apply(this,arguments);
+      }, wait);
+    }
+
+    return wrapper;
+  }
+
+  function resize() {
+    console.log('resize');
+  }
+
+  var throttledResize = throttle(resize, 500);
+</script>
+</body>
+</html>
+```
 #### 26. How to implement privacy in javascript ?
 Use module design pattern i.e. invoke IIFE to create closure and return object that project variables and methods.
 ```javascript
