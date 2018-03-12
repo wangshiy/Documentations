@@ -712,9 +712,8 @@ Exposer.display();
 Two class: `Subject` and `Observer`. Subject maintain a queue of Observers, subscribe/unsubscribe and notify/broadcast function. Observer provide notify function.
 ```javascript
 var Subject = function() {
-  this.observers = [];
-
   return {
+    observers: [],
     subscribeObserver: function(observer) {
       this.observers.push(observer);
     },
