@@ -1285,6 +1285,7 @@ function bar() {
 bar();
 // output 2
 ```
+
 #### 47. Difference between lexical scope and dynamic scope ?
 - 事件循环每次只会入栈一个 macrotask ，主线程执行完该任务后又会先检查 microtasks 队列并完成里面的所有任务后再执行 macrotask
 - macrotasks: setTimeout, setInterval, setImmediate, I/O, UI rendering
@@ -1323,6 +1324,7 @@ setTimeout(() => {
 
 // start, p1, p2, timeout1, p3, p4, timeout2, p5
 ```
+
 #### 48. How to make Object iterable ?
 - Overwrite `@@iterator` method with generator function
 ```javascript
@@ -1352,6 +1354,7 @@ for (const k of options) {
 "rel:Love"
 */
 ```
+
 #### 49. Use async/await to simulate pause function ?
 - `async` is the syntac sugar for `generator`, i.e. `async` is `function*`, `await` is `yield`
 ```javascript
@@ -1378,6 +1381,7 @@ async function asyncSleep() {
 
 asyncSleep();
 ```
+
 #### 50. The principle and methods of implementing jsonp ?
 - JSONP utilize the fact that `<script>` `src` attribute to handle cors, so it only support `get` method
 - It sends callback function to server and let server fill the data and then invoke later
@@ -1454,4 +1458,23 @@ http.createServer(function(req,res){
 }).listen(port,function(){
     console.log('jsonp server is on');
 });
+```
+
+#### 51. Implement template string replacement using RegExp ?
+- `/\$\{\w+\}/gi`
+```javascript
+  const test = {
+    gaga: 'jim',
+    haha: 17
+  }
+  const reg = /\$\{\w+\}/gi;
+
+  function replacer(match, args) {
+    const arg = match.substring(2, match.length-1);
+    console.log('match and arg:', match, arg, this[arg]); // match and arg: ${gaga} gaga jim; match and arg: ${haha} haha 17;
+    return this[arg];
+  }
+
+  console.log('result before: ','{name: ${gaga}, age: ${haha}}'); // result before:  {name: ${gaga}, age: ${haha}}
+  console.log('result after: ','{name: ${gaga}, age: ${haha}}'.replace(reg, replacer.bind(test))); // result after:  {name: jim, age: 17}
 ```
