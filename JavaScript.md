@@ -1477,3 +1477,48 @@ http.createServer(function(req,res){
   console.log('result before: ','{name: ${gaga}, age: ${haha}}'); // result before:  {name: ${gaga}, age: ${haha}}
   console.log('result after: ','{name: ${gaga}, age: ${haha}}'.replace(reg, replacer.bind(test))); // result after:  {name: jim, age: 17}
 ```
+
+#### 52. Implement middleware design pattern ?
+- keypoint is to maintain a function queue
+```javascript
+const App = {
+    fns: [],
+    ctx: {
+      name: ''
+    },
+    callback: function () {
+      console.log(this.ctx);
+    },
+    use: function (fn) {
+      this.fns.push(fn);
+      return this;
+    },
+    go: function () {
+        this.next();
+        this.callback();
+    },
+    next: function() {
+      if (this.fns && this.fns.length > 0) {
+        const fn = this.fns.shift();
+        fn.call(this, this.ctx, this.next.bind(this));
+      }
+    }
+};
+
+App.use(function (ctx, next) {
+    ctx.name = 'hello';
+    next();
+});
+
+App.use(function (ctx, next) {
+    ctx.name += ' world';
+    next();
+});
+
+App.use(function (ctx, next) {
+    ctx.name += '!!!';
+    next();
+});
+
+App.go(); // {name: 'hello world!!!'}
+```
