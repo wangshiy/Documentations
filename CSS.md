@@ -188,3 +188,20 @@ outside div `display:flex;`, inside div `margin:auto;`
   </body>
 </html>
 ```
+
+#### 7. What are properties are animatable ?
+In general, most numeric css properties are animatable.
+- https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_animated_properties
+
+#### 8. What are differences are `display: inline` and `display: inline-block` ?
+- `display: inline`: can not set `height`, `width`, `margin-top`, `margin-bottom`, `padding-top`, `padding-bottom`
+- `display: inline-block`: can set `height`, `width`, `margin` `padding`, but there are spaces between each block
+- Method to clear spacing between inline-block is to set parent `word-spacing: -4px;` for Chrome and etc.
+```html
+  <div style="width: 100%; height: 100px; background-color: yellow;word-spacing: -4px;">
+    <span style="display: inline-block; width: 100px; height: 30px;background-color: red;padding: 10px;">jjj</span>
+    <span style="display: inline-block; width: 100px; height: 30px;background-color: red;padding: 10px;">jjj</span>
+    <span style="display: inline-block; width: 100px; height: 30px;background-color: red;padding: 10px;">jjj</span>
+    <span style="display: inline-block; width: 100px; height: 30px;background-color: red;padding: 10px;">jjj</span>
+  </div>
+```
