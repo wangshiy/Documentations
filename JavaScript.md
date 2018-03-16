@@ -1522,3 +1522,24 @@ App.use(function (ctx, next) {
 
 App.go(); // {name: 'hello world!!!'}
 ```
+
+#### 53. Remove duplicates with different types ?
+- use typeof and original value as key
+```javascript
+var a = [1,'2','1','ab', 1, 'string']
+
+function removeDup(ary) {
+    const result = [];
+    const set = new Set();
+    ary.forEach((e,i,a) => {
+	const typeElem = e + typeof e;
+	if (!set.has(typeElem)) {
+	    result.push(e);
+	    set.add(typeElem);
+	}
+    });
+    return result;
+}
+
+console.log(removeDup(a)); // [1,'2','1','ab','string']
+```
