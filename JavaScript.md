@@ -1543,3 +1543,69 @@ function removeDup(ary) {
 
 console.log(removeDup(a)); // [1,'2','1','ab','string']
 ```
+
+#### 54. How to create a lazy loading scroll area ?
+- scrollHeight - (scrollTop + clientHeight) <= TRIGGER_SCROLL_SIZE
+```javascript
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <style type="text/css">
+    #scroll-box {
+      height: 400px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #content {
+      width: 200px;
+      height: 200px;
+      padding: 20px 0;
+      margin: 30px 0;
+      overflow: auto;
+    }
+
+    #content p{
+      height: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="scroll-box">
+    <div id="content" onscroll="scrollHandler()">
+      <p>sdfsf</p>
+      <p>sdfsf</p>
+      <p>sdfsf</p>
+      <p>sdfsf</p>
+      <p>sdfsf</p>
+      <p>sdfsf</p>
+      <p>sdfsf</p>
+      <p>sdfsf</p>
+      <p>sdfsf</p>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    TRIGGER_SCROLL_SIZE = 50;
+    var content = document.getElementById("content");
+
+    function scrollHandler() {
+      var scrollHeight = content.scrollHeight;
+      var scrollTop = content.scrollTop;
+      var clientHeight = content.clientHeight;
+      console.log(`scrollTop: ${scrollTop}, scrollHeight: ${scrollHeight}, clientHeight: ${clientHeight}, substraction: ${scrollHeight - (scrollTop + clientHeight)}`);
+      if (scrollHeight - (scrollTop + clientHeight) <= TRIGGER_SCROLL_SIZE) {
+        console.log('append');
+        var node = document.createElement("p");
+        var textNode = document.createTextNode("ppp");
+        node.appendChild(textNode);
+        content.appendChild(node);
+      }
+    }
+  </script>
+</body>
+</html>
+```
