@@ -222,3 +222,47 @@ class MinPQ {
   }
 }
 ```
+
+#### 4. [Sorting](http://khan4019.github.io/front-end-Interview-Questions/sort.html#quickSort) Quick sort ?
+- Divide and Conquer, three functions `quickSort(array, left, right)`, `partition(array, pivotIdx, left, right)`, `swap(array, left, right)`
+```javascript
+    const test1 = [0]; // 0
+    const test2 = [2,1]; // 1,2
+    const test3 = [4,3,2,1,100]; // 1,2,3,4,100
+    const test4 = [3,7,8,4,2,1,5]; // 1,2,3,4,5,7,8
+
+    function quickSort(array, left, right) {
+      let pivot = right; // take last element as the pivot
+      let partitionIdx = 0;
+      if (left < right) {
+        partitionIdx = partition(array, pivot, left, right);
+        quickSort(array, left, partitionIdx - 1);
+        quickSort(array, partitionIdx + 1, right);
+      }
+      return array;
+    }
+
+    function partition(array, pivotIdx, left, right) {
+      let pivotValue = array[pivotIdx];
+      let partitionIdx = left;
+      for (let i = left; i < right; i++) {
+        if (array[i] < pivotValue) {
+          swap(array, i, partitionIdx);
+          partitionIdx++;
+        }
+      }
+      swap(array, partitionIdx, right); // swap with last element as the pivot
+      return partitionIdx;
+    }
+
+    function swap(array, left, right) {
+      const temp = array[left];
+      array[left] = array[right];
+      array[right] = temp;
+    }
+
+    console.log(quickSort(test1, 0, test1.length - 1)); // 0
+    console.log(quickSort(test2, 0, test2.length - 1)); // 1,2
+    console.log(quickSort(test3, 0, test3.length - 1)); // 1,2,3,4,100
+    console.log(quickSort(test4, 0, test4.length - 1)); // 1,2,3,4,5,7,8
+```
