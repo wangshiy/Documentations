@@ -1529,16 +1529,7 @@ App.go(); // {name: 'hello world!!!'}
 var a = [1,'2','1','ab', 1, 'string']
 
 function removeDup(ary) {
-    const result = [];
-    const set = new Set();
-    ary.forEach((e,i,a) => {
-	const typeElem = e + typeof e;
-	if (!set.has(typeElem)) {
-	    result.push(e);
-	    set.add(typeElem);
-	}
-    });
-    return result;
+    return [...new Set(ary)];
 }
 
 console.log(removeDup(a)); // [1,'2','1','ab','string']
