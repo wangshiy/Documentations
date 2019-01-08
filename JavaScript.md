@@ -1,12 +1,12 @@
 # JavaScript
-#### 1. Differences between `null` and `undefined` ? 
+#### 1. Differences between `null` and `undefined` ?
 `undefined`: a variable has been declared but not assigned a value yet, and it is a data type
 ``` JavaScript
 var a;
 console.log(a); // undefined
 console.log(typeof a); // "undefined"
 ```
-`null`: an assignment value means variable has no value 
+`null`: an assignment value means variable has no value
 ``` JavaScript
 var a = null;
 console.log(a); // null
@@ -179,7 +179,7 @@ function log(){
 }
 log("a","b","c"); // "(app) a b c"
 ```
-#### 11. How to log the loop counter inside setTimeout ? 
+#### 11. How to log the loop counter inside setTimeout ?
 Use IIFE or `bind()` to create its own scope and pass i to it respectively
 ```javascript
 for(var i = 0; i < 10; i++) {
@@ -188,7 +188,7 @@ for(var i = 0; i < 10; i++) {
 	})(i), 10)
 }
 //*-----------------------------------*//
-for(var i = 0; i < 10; i++) { 
+for(var i = 0; i < 10; i++) {
 	setTimeout(console.log.bind(console, i), 10);
 }
 ```
@@ -244,7 +244,7 @@ This way the re-indexing doesn't affect the next item in the iteration, since th
       if(a[i] % 2 === 0){
         a.splice(i,1);
       }
-    } 
+    }
     console.log(a);//[2,4,8]
 
     var b = [2,2,2,4,6,8];
@@ -312,7 +312,7 @@ Thought is to get the path from the domTree1 and use this path to relocate node 
         <div id="target">target</div>
       </div>
     </div>
-    
+
     <script>
 var target = document.getElementById("target");
 var dom1 = document.documentElement;//return the root element i.e. <html>
@@ -324,7 +324,7 @@ function indexOf(arrLike, target) {
     return Array.prototype.indexOf.call(arrLike, target);
 }
 
-// Given a node and a tree, extract the nodes path 
+// Given a node and a tree, extract the nodes path
 function getPath(root, target) {
     var current = target;
     var path = [];
@@ -378,7 +378,7 @@ div {
   d<p>Second p element (index 3)</p>e
 </div>
 
-<p><strong>Note:</strong> Whitespace inside elements is considered as text, and text 
+<p><strong>Note:</strong> Whitespace inside elements is considered as text, and text
 is considered as nodes. In this example, index 0, 2 and 4 in DIV are text nodes.</p>
 
 <p id="demo"></p>
@@ -405,14 +405,14 @@ Array.prototype.flatten = function(mutable) {
             ret.push(this[i]);
         }
     }
-    
+
     return mutable ? ret : JSON.parse(JSON.stringify(ret));
 };
 
 var array = [
   [0,[undefined,null], 1],
-  undefined, 
-  [2,null, 3], 
+  undefined,
+  [2,null, 3],
   [4, 5, [6, 7, [8, [9, 10]]]],
   [[{name:["jimmy","tom"]},8],'bbbb']
 ];
@@ -432,15 +432,15 @@ Iterative
 function flatten(array, mutable) {
     var toString = Object.prototype.toString;
     var arrayTypeStr = '[object Array]';
-    
+
     var result = [];
     var nodes = array.slice(); //slice is just shallow copy
     var node;
-    
+
     if (!array.length) {
         return result;
     }
-    
+
     while (nodes.length) {
       node = nodes.shift();
         if (toString.call(node) === arrayTypeStr) {
@@ -455,8 +455,8 @@ function flatten(array, mutable) {
 
 var array = [
   [0,[undefined,null], 1],
-  undefined, 
-  [2,null, 3], 
+  undefined,
+  [2,null, 3],
   [4, 5, [6, 7, [8, [9, 10]]]],
   [[{name:["jimmy","tom"]},8],'bbbb']
 ];
@@ -685,19 +685,19 @@ Use module design pattern i.e. invoke IIFE to create closure and return object t
 ```javascript
 var Exposer = (function(){
   var privateCount = 0;
-  
+
   var privateFunc = function(){
     privateCount++;
   }
-  
+
   var incre = function(){
     privateFunc();
   }
-  
+
   var display = function(){
     console.log(privateCount);
   }
-  
+
   return {
     incre: incre,
     display: display
@@ -769,12 +769,12 @@ subject.notifyAllObservers();
 ```javascript
 var Singleton = (function () {
     var instance;
- 
+
     function createInstance() {
         var object = new Object("I am the singleton instance");
         return object;
     }
- 
+
     return {
         getInstance: function () {
             if (!instance) {
@@ -784,10 +784,10 @@ var Singleton = (function () {
         }
     };
 })();
- 
+
 var instance1 = Singleton.getInstance();
 var instance2 = Singleton.getInstance();
- 
+
 console.log("Same instance? " + (instance1 === instance2));
 ```
 #### 29. How to remove last two characters from a string ?
@@ -843,26 +843,26 @@ No modifications of work are allowed. Your code should reside only in makeLoggin
 function work(a,b){
   console.log("work");
 }
- 
-function makeLogging(f) { 
+
+function makeLogging(f) {
   var log = [];
- 
+
   function wrapper() {
     log.push(arguments);
     return f.apply(this, arguments);
   }
- 
+
   wrapper.outputLog = function() {  
     for(var i = 0; i < log.length; i++){
       console.log(Array.prototype.join.call(log[i], ','));
     }
   }
- 
+
   return wrapper
 }
- 
+
 work = makeLogging(work);
- 
+
 work(1, 10);
 work(2, 20);
 work.outputLog();
@@ -890,29 +890,29 @@ Should work like this:
 ```
 No modifications of work are allowed. Your code should reside only in makeCaching.
 ```javascript
-function work(arg){ 
+function work(arg){
   return Math.random()*arg;
 }
- 
-function makeCaching(f) { 
+
+function makeCaching(f) {
   var cache = {};  
- 
+
   function wrapper(arg) {
     if (!(arg in cache)) {
       cache[arg] = f.call(this, arg);
     }
     return cache[arg];
   }
- 
+
   wrapper.flush = function() {  
     cache = {};
   }
- 
+
   return wrapper;
 }
- 
+
 work = makeCaching(work);
- 
+
 alert( work(1) );
 alert( work(1) );
 work.flush();      
@@ -926,7 +926,7 @@ function work(a,b,c){
 
 function makeCache(f){
   var cache = {};
-  
+
   function wrapper(){
     var key = Array.prototype.join.call(arguments,",");
     if(!(key in cache)){
@@ -934,11 +934,11 @@ function makeCache(f){
     }
     return cache[key];
   }
-  
+
   function showCache(){
     return cache;
   }
-  
+
   return {
     wrapper:wrapper,
     showCache:showCache
@@ -955,10 +955,10 @@ console.log(newWork.showCache());
 function work(a,b,c){
   return Math.random() * a * b * c;
 }
- 
+
 function makingCache(f){
   var cache = {};
-   
+
   function wrapper(){
     var args = Array.from(arguments);//typeof arguments is object, so this is to convert array like object
     console.log(args);
@@ -968,23 +968,23 @@ function makingCache(f){
     }
     return cache[key];
   }
-   
+
   wrapper.showCache = function(){
     return cache;
   }
-   
+
   return wrapper;
 }
- 
+
 work = makingCache(work);
- 
+
 console.log(work(1,2,3));
 console.log(work(1,2,3));
- 
+
 console.log(work.showCache());
 ```
 #### 32. Difference between class inheritance and prototype inheritance ?
-Class Inheritance: class is the blueprint to instantiate instance, classed inherit from classes and create hierachical class taxonomies. 
+Class Inheritance: class is the blueprint to instantiate instance, classed inherit from classes and create hierachical class taxonomies.
 
 Problems:
 - Tight coupling
@@ -1012,7 +1012,7 @@ MITM is Man In The Middle, it is an attack that relays or alters the communicati
 Protection:
 - Use HTTPS
 
-Because browser 
+Because browser
 
 1. Checks received certificate info matches the server info
 2. Certificate must be valid and signed by the browser trusts Certification Authority (CA)
@@ -1038,13 +1038,13 @@ Because browser
     <p>content1</p>
     <span>content1</span>
   </div>
-  
+
   <h2 class="accordion">section2</h2>
   <div class="panel">
     <p>content2</p>
     <span>content2</span>
   </div>
-  
+
   <script>
     var accordions = document.getElementsByClassName("accordion");
     function toggleDisplay(){
@@ -1124,15 +1124,15 @@ el.children.length === 0; // no Element children
 ```javascript
 var flattenObject = function(ob) {
   var toReturn = {};
-  
+
   for (var i in ob) {
     // if (!ob.hasOwnProperty(i)) continue; // [optional code] check if object has its own property i.e. not inherited
-    
+
     if (ob[i] && (typeof ob[i]) == 'object') {
       var flatObject = flattenObject(ob[i]);
       for (var x in flatObject) {
         // if (!flatObject.hasOwnProperty(x)) continue; // [optional code] check if object has its own property i.e. not inherited
-        
+
         toReturn[i + '.' + x] = flatObject[x];
       }
     } else {
@@ -1216,9 +1216,9 @@ function rmDupByInnerProp(array, prop) {
       <li class="item" title="aag">aaabffffffff</li>
       <li class="item" title="aag">aaabffffffff</li>
     </div>
-    <button onclick="moveRight()">></button> 
+    <button onclick="moveRight()">></button>
   </ul>
-  
+
   <script>
     var itemShiftLeft = document.getElementsByClassName('item-shift-left')[0];
     var marginLeft = 0;
@@ -1250,7 +1250,7 @@ console.log(totalSumArray);
 // [1, 1, 15, 4]
 ```
 #### 45. Difference between function and arrow function ?
-There is no `this` binding in arrow function, but function has `this` 
+There is no `this` binding in arrow function, but function has `this`
 ```javascript
 const obj = {
   name: 'jim',
@@ -1422,14 +1422,14 @@ asyncSleep();
     function jsonpClickHandler() {
       jsonp({
           url : 'http://localhost:8888',
-          callback : hello 
+          callback : hello
       });
     }
 
     function jsonpClickHandler1() {
       jsonp({
           url : 'http://localhost:8888',
-          callback : hello1 
+          callback : hello1
       });
     }
   </script>
@@ -1453,7 +1453,7 @@ http.createServer(function(req,res){
     } else {
         res.end();
     }
-    
+
 }).listen(port,function(){
     console.log('jsonp server is on');
 });
@@ -1599,4 +1599,29 @@ console.log(removeDup(a)); // [1,'2','1','ab','string']
   </script>
 </body>
 </html>
+```
+
+#### 55. How to implement a currying function, e.g sum(2,2)(1)() = 5 ?
+```javascript
+var currying = function (fn) {
+  var _args = [];
+  var _curry = function () {
+    if (arguments.length === 0) {
+      return fn.apply(this, _args);
+    }
+    Array.prototype.push.apply(_args, [].slice.call(arguments));
+    return _curry;
+  }
+  return _curry;
+};
+
+var sum = currying(function () {
+  var total = 0;
+  for (var i = 0, c; c = arguments[i++];) {
+    total += c;
+  }
+  return total;
+});
+
+console.log(sum(2,2)(1)());
 ```
