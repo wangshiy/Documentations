@@ -1522,6 +1522,52 @@ App.use(function (ctx, next) {
 
 App.go(); // {name: 'hello world!!!'}
 ```
+```javascript
+class Middleware {
+      constructor() {
+        this.cache = [];
+        this.middlewares = [];
+      }
+    
+      use(fn) {
+        if(typeof fn !== 'function'){
+          throw 'middleware must be a function';
+        }
+        this.cache.push(fn);
+        return this;
+      }
+    
+      next(fn) {
+        if(this.middlewares && this.middlewares.length > 0 ){
+          var ware = this.middlewares.shift();
+          ware.call(this, this.next.bind(this));
+        }
+      }
+    
+      go() {
+        this.middlewares = this.cache.map(function(fn){
+          return fn;
+        });
+        console.log('this', this);
+        this.next();
+      }
+    }
+    
+    var middleware = new Middleware();
+    middleware.use(function(next){
+      console.log(1);next();console.log('1结束');
+    });
+    middleware.use(function(next){
+       console.log(2);next();console.log('2结束');
+    });
+    middleware.use(function(next){
+       console.log(3);console.log('3结束');
+    });
+    middleware.use(function(next){
+       console.log(4);next();console.log('4结束');
+    });
+    middleware.go();
+```
 
 #### 53. Remove duplicates with different types ?
 - use typeof and original value as key
